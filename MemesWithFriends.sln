@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemesWithFriends", "MemesWithFriends\MemesWithFriends.csproj", "{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {157CA911-7E3B-437A-8C68-41D9B25FF83C}
+	EndGlobalSection
+EndGlobal
