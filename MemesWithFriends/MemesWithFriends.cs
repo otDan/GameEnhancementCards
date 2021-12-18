@@ -19,10 +19,9 @@ namespace MemesWithFriends
     {
         private const string ModId = "ot.dan.rounds.MemesWithFriends";
         private const string ModName = "MemesWithFriends";
-        public const string Version = "0.0.0"; // What version are we on (major.minor.patch)?
-
-        public static MemesWithFriends instance { get; private set; }
+        public const string Version = "0.0.0";
         public const string ModInitials = "MWF";
+        public static MemesWithFriends instance { get; private set; }
 
         void Awake()
         {
@@ -32,7 +31,9 @@ namespace MemesWithFriends
         }
         void Start()
         {
-            CustomCard.BuildCard < Template>();
+            instance = this;
+            CustomCard.BuildCard<Napoli>();
+            CustomCard.BuildCard<Template>();
         }
     }
 }

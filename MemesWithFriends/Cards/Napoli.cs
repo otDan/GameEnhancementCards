@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MemesWithFriends.Cards
 {
-    class Template : CustomCard
+    class Napoli : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -29,11 +29,11 @@ namespace MemesWithFriends.Cards
 
         protected override string GetTitle()
         {
-            return "CardName2";
+            return "Na[B]oli";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Steal a random enemies card and use one time for each round.";
         }
         protected override GameObject GetCardArt()
         {
