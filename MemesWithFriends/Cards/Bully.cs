@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MemesWithFriends.Cards
 {
-    class Napoli : CustomCard
+    class Bully : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -29,11 +29,11 @@ namespace MemesWithFriends.Cards
 
         protected override string GetTitle()
         {
-            return "Na[B]oli";
+            return "Bully";
         }
         protected override string GetDescription()
         {
-            return "Steal a random enemies card and use one time for each round.";
+            return "Steal permanently a card from a random player.";
         }
         protected override GameObject GetCardArt()
         {
@@ -41,24 +41,15 @@ namespace MemesWithFriends.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]
-            {
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Effect",
-                    amount = "No",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
-            };
+            return new CardInfoStat[]{};
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
         public override string GetModName()
         {

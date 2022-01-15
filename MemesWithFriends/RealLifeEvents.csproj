@@ -56,16 +56,26 @@
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\Crypto.cs" />
+    <Compile Include="Cards\Stocks.cs" />
+    <Compile Include="Cards\DisableLite.cs" />
+    <Compile Include="Cards\Rebalance.cs" />
     <Compile Include="Cards\Template.cs" />
-    <Compile Include="Cards\Napoli.cs" />
+    <Compile Include="Cards\Disable.cs" />
+    <Compile Include="Cards\Mafia.cs" />
+    <Compile Include="Cards\Thief.cs" />
+    <Compile Include="Cards\Bully.cs" />
     <Compile Include="MemesWithFriends.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

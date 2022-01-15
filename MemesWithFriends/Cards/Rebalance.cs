@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MemesWithFriends.Cards
 {
-    class Template : CustomCard
+    class Rebalance : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -29,11 +29,11 @@ namespace MemesWithFriends.Cards
 
         protected override string GetTitle()
         {
-            return "Template";
+            return "Rebalance";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "All cards of all players get redistributed.";
         }
         protected override GameObject GetCardArt()
         {
@@ -41,24 +41,15 @@ namespace MemesWithFriends.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]
-            {
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Effect",
-                    amount = "No",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
-            };
+            return new CardInfoStat[]{};
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
         public override string GetModName()
         {
