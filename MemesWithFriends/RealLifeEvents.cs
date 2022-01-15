@@ -1,12 +1,12 @@
 ﻿using BepInEx;
 using UnboundLib;
 using UnboundLib.Cards;
-using MemesWithFriends.Cards;
+using RealLifeEvents.Cards;
 using HarmonyLib;
 using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using Jotunn.Utils;
 
-namespace MemesWithFriends
+namespace RealLifeEvents
 {
     // These are the mods required for our mod to work
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]

@@ -7,7 +7,7 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace MemesWithFriends.Cards
+namespace RealLifeEvents.Cards
 {
     class Thief : CustomCard
     {

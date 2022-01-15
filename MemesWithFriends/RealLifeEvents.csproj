@@ -7,8 +7,8 @@
     <ProjectGuid>{1FEFF5E7-335C-4183-86E1-F69BBACACCFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MemesWithFriends</RootNamespace>
-    <AssemblyName>MemesWithFriends</AssemblyName>
+    <RootNamespace>RealLifeEvents</RootNamespace>
+    <AssemblyName>RealLifeEvents</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -63,7 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\Crypto.cs" />
-    <Compile Include="Cards\Stocks.cs" />
+    <Compile Include="Cards\Nft.cs" />
+    <Compile Include="Cards\Stock.cs" />
     <Compile Include="Cards\DisableLite.cs" />
     <Compile Include="Cards\Rebalance.cs" />
     <Compile Include="Cards\Template.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="Cards\Mafia.cs" />
     <Compile Include="Cards\Thief.cs" />
     <Compile Include="Cards\Bully.cs" />
-    <Compile Include="MemesWithFriends.cs" />
+    <Compile Include="RealLifeEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
