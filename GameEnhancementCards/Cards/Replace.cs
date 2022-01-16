@@ -21,17 +21,15 @@ namespace GameEnhancementCards.Cards
         {
             UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-
-            var randomCard = CardsManager.instance.RandomCard();
-            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, randomCard, false, "", 2f, 2f, true);
-
-            /*List<CardInfo> playerCards = player.data.currentCards;
+            
+            List<CardInfo> playerCards = player.data.currentCards;
             var card = playerCards.ToArray().Length - 1;
             if (card >= 0)
             {
                 ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, card);
-                
-            }*/
+                var randomCard = CardsManager.instance.RandomCard();
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, randomCard, false, "", 2f, 2f, true);
+            }
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
