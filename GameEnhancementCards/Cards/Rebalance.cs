@@ -7,33 +7,33 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace RealLifeEvents.Cards
+namespace GameEnhancementCards.Cards
 {
-    class Crypto : CustomCard
+    class Rebalance : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been setup.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
             //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "Crypto";
+            return "Rebalance";
         }
         protected override string GetDescription()
         {
-            return "Random stats change moderately in value each game.";
+            return "All cards of all players get redistributed.";
         }
         protected override GameObject GetCardArt()
         {
@@ -41,7 +41,7 @@ namespace RealLifeEvents.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -53,7 +53,7 @@ namespace RealLifeEvents.Cards
         }
         public override string GetModName()
         {
-            return RealLifeEvents.ModInitials;
+            return GameEnhancementCards.ModInitials;
         }
     }
 }

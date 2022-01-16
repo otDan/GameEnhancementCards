@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameEnhancementCards.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,33 +8,44 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace RealLifeEvents.Cards
+namespace GameEnhancementCards.Cards
 {
-    class DisableLite : CustomCard
+    class Replace : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been setup.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
+
+            var randomCard = CardsManager.instance.RandomCard();
+            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, randomCard, false, "", 2f, 2f, true);
+
+            /*List<CardInfo> playerCards = player.data.currentCards;
+            var card = playerCards.ToArray().Length - 1;
+            if (card >= 0)
+            {
+                ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, card);
+                
+            }*/
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
             //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "Disable Lite";
+            return "Replace";
         }
         protected override string GetDescription()
         {
-            return "Disable each turn a random card from one of your opponents.";
+            return "Replace your last card pick with a card of the same rarity.";
         }
         protected override GameObject GetCardArt()
         {
@@ -49,11 +61,11 @@ namespace RealLifeEvents.Cards
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.TechWhite;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
         public override string GetModName()
         {
-            return RealLifeEvents.ModInitials;
+            return GameEnhancementCards.ModInitials;
         }
     }
 }

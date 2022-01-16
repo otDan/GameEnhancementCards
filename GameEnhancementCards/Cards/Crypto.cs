@@ -7,33 +7,33 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace RealLifeEvents.Cards
+namespace GameEnhancementCards.Cards
 {
-    class Stock : CustomCard
+    class Crypto : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been setup.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{RealLifeEvents.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
             //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "Stock";
+            return "Crypto";
         }
         protected override string GetDescription()
         {
-            return "Random stats change slightly in value each game.";
+            return "Random stats change moderately in value each game.";
         }
         protected override GameObject GetCardArt()
         {
@@ -41,11 +41,27 @@ namespace RealLifeEvents.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[]
+            {
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Stats",
+                    amount = "+0%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Stats",
+                    amount = "-0%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
+            };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
@@ -53,7 +69,7 @@ namespace RealLifeEvents.Cards
         }
         public override string GetModName()
         {
-            return RealLifeEvents.ModInitials;
+            return GameEnhancementCards.ModInitials;
         }
     }
 }

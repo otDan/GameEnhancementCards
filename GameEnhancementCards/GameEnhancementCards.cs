@@ -1,12 +1,12 @@
 ﻿using BepInEx;
 using UnboundLib;
 using UnboundLib.Cards;
-using RealLifeEvents.Cards;
+using GameEnhancementCards.Cards;
 using HarmonyLib;
 using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using Jotunn.Utils;
 
-namespace RealLifeEvents
+namespace GameEnhancementCards
 {
     // These are the mods required for our mod to work
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
@@ -16,20 +16,20 @@ namespace RealLifeEvents
     [BepInPlugin(ModId, ModName, Version)]
     // The game our mod is associated with
     [BepInProcess("Rounds.exe")]
-    public class RealLifeEvents : BaseUnityPlugin
+    public class GameEnhancementCards : BaseUnityPlugin
     {
-        private const string ModId = "ot.dan.rounds.RealLifeEvents";
-        private const string ModName = "RealLifeEvents";
-        public const string Version = "0.0.1";
-        public const string ModInitials = "RLE";
-        public static RealLifeEvents instance { get; private set; }
+        private const string ModId = "ot.dan.rounds.GameEnhancementCards";
+        private const string ModName = "GameEnhancementCards";
+        public const string Version = "0.0.2";
+        public const string ModInitials = "GEC";
+        public static GameEnhancementCards instance { get; private set; }
 
         void Awake()
         {
             // Use this to call any harmony patch files your mod may have
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
-            AssetUtils.LoadAssetBundleFromResources("", typeof(RealLifeEvents).Assembly);
+            AssetUtils.LoadAssetBundleFromResources("", typeof(GameEnhancementCards).Assembly);
         }
         void Start()
         {
@@ -44,6 +44,13 @@ namespace RealLifeEvents
             CustomCard.BuildCard<Stock>();
             CustomCard.BuildCard<Crypto>();
             CustomCard.BuildCard<Nft>();
+
+            //Removing cards
+            CustomCard.BuildCard<BadChoice>();
+            CustomCard.BuildCard<Negate>();
+
+            //Replacing cards
+            CustomCard.BuildCard<Replace>();
 
             //No cathegory cards
             CustomCard.BuildCard<Rebalance>();
