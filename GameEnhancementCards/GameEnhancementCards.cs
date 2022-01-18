@@ -39,14 +39,14 @@ namespace GameEnhancementCards
             //Updradable cards (Probably separate card pack)
 
             //Stealing cards
-            //CustomCard.BuildCard<Bully>();
-            //CustomCard.BuildCard<Thief>();
-            //CustomCard.BuildCard<Mafia>();
+            CustomCard.BuildCard<Bully>();
+            CustomCard.BuildCard<Thief>();
+            CustomCard.BuildCard<Mafia>();
 
-            //Market cards
-            CustomCard.BuildCard<Stock>();
-            CustomCard.BuildCard<Crypto>();
-            CustomCard.BuildCard<Nft>();
+            //Market cards needs logic done
+            //CustomCard.BuildCard<Stock>();
+            //CustomCard.BuildCard<Crypto>();
+            //CustomCard.BuildCard<Nft>();
 
             //Removing cards
             CustomCard.BuildCard<MissClick>();

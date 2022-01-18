@@ -26,14 +26,6 @@ namespace GameEnhancementCards.Utils
             }
         }
 
-        public static void RemovePlayersCardAtPosition(CardPosition cardPosition)
-        {
-            foreach (Player player in PlayerManager.instance.players)
-            {
-                RemovePlayerCardAtPosition(player, cardPosition);
-            }
-        }
-
         public static void RandomizePlayerCardAtPosition(Player player, CardPosition cardPosition)
         {
             List<CardInfo> playerCards = player.data.currentCards;
@@ -47,6 +39,14 @@ namespace GameEnhancementCards.Utils
                     Unbound.Instance.StartCoroutine(ModdingUtils.Utils.Cards.instance.ReplaceCard(player, playerCards.IndexOf(oldCard), randomCard, "", 2f, 2f, true));
                 }
                 );
+            }
+        }
+
+        public static void RemovePlayersCardAtPosition(CardPosition cardPosition)
+        {
+            foreach (Player player in PlayerManager.instance.players)
+            {
+                RemovePlayerCardAtPosition(player, cardPosition);
             }
         }
 
@@ -64,8 +64,61 @@ namespace GameEnhancementCards.Utils
             }
         }
 
+        public static void StealPlayersCardAtPosition(Player player, PlayerAmount playerAmount, CardPosition cardPosition)
+        {
+            List<Player> players = new List<Player>(PlayerManager.instance.players);
+            players.Remove(player);
+            players.OrderBy(order => random.Next());
+
+            switch (playerAmount)
+            {
+                case PlayerAmount.ONE:
+                    {
+                        players = GetRandomPlayers(players, 1);
+                        break;
+                    }
+                case PlayerAmount.HALF:
+                    {
+                        players = GetRandomPlayers(players, (players.Count - 1) / 2);
+                        break;
+                    }
+                case PlayerAmount.ALL:
+                    {
+                        players = GetRandomPlayers(players, players.Count - 1);
+                        break;
+                    }
+            }
+
+            foreach (Player fromPlayer in players)
+            {
+                StealPlayerCardAtPosition(player, fromPlayer, cardPosition);
+            }
+        }
+
+        public static void StealPlayerCardAtPosition(Player player, Player fromPlayer, CardPosition cardPosition)
+        {
+            List<CardInfo> fromPlayerCards = fromPlayer.data.currentCards;
+            CardInfo stolenCard = PlayerCardAtPosition(player, fromPlayerCards, cardPosition);
+            if (stolenCard != null)
+            {
+                Unbound.Instance.ExecuteAfterFrames(10, () =>
+                {
+                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(fromPlayer, fromPlayerCards.IndexOf(stolenCard));
+                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, stolenCard, false, "", 2f, 2f, true);
+                }
+                );
+            }
+        }
+
+        private static List<Player> GetRandomPlayers(this IEnumerable<Player> players, int playersAmount)
+        {
+            return players.OrderBy(arg => random.Next()).Take(playersAmount).ToList();
+        }
+
         private static CardInfo PlayerCardAtPosition(Player player, List<CardInfo> playerCards, CardPosition cardPosition)
         {
+            if (playerCards.Count < 1)
+                return null;
             switch (cardPosition)
             {
                 case CardPosition.FIRST:
@@ -83,7 +136,7 @@ namespace GameEnhancementCards.Utils
                     }
             }
 
-            return playerCards.ElementAt(0);
+            return null;
         }
 
         private static CardInfo RandomCard(Player checkPlayer, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats, CardInfo checkCardInfo)
@@ -131,5 +184,12 @@ namespace GameEnhancementCards.Utils
         LAST,
         FIRST,
         RANDOM
+    }
+
+    public enum PlayerAmount
+    {
+        ONE,
+        HALF,
+        ALL
     }
 }
