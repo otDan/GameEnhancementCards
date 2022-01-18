@@ -39,9 +39,9 @@ namespace GameEnhancementCards
             //Updradable cards (Probably separate card pack)
 
             //Stealing cards
-            CustomCard.BuildCard<Bully>();
-            CustomCard.BuildCard<Thief>();
-            CustomCard.BuildCard<Mafia>();
+            //CustomCard.BuildCard<Bully>();
+            //CustomCard.BuildCard<Thief>();
+            //CustomCard.BuildCard<Mafia>();
 
             //Market cards
             CustomCard.BuildCard<Stock>();
@@ -54,11 +54,14 @@ namespace GameEnhancementCards
 
             //Replacing cards
             CustomCard.BuildCard<Replace>();
+            CustomCard.BuildCard<Spice>();
 
             //No cathegory cards
             CustomCard.BuildCard<Rebalance>();
-            CustomCard.BuildCard<Disable>();
-            CustomCard.BuildCard<DisableLite>();
+
+            //Needs rethinking probably bad idea
+            //CustomCard.BuildCard<Disable>();
+            //CustomCard.BuildCard<DisableLite>();
         }
     }
 }

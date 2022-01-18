@@ -62,19 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\Spice.cs" />
     <Compile Include="Cards\Replace.cs" />
     <Compile Include="Cards\Negate.cs" />
     <Compile Include="Cards\MissClick.cs" />
-    <Compile Include="Cards\Crypto.cs" />
-    <Compile Include="Cards\Nft.cs" />
-    <Compile Include="Cards\Stock.cs" />
-    <Compile Include="Cards\DisableLite.cs" />
+    <Compile Include="Cards\TODO\Crypto.cs" />
+    <Compile Include="Cards\TODO\Nft.cs" />
+    <Compile Include="Cards\TODO\Stock.cs" />
+    <Compile Include="Cards\TODO\DisableLite.cs" />
     <Compile Include="Cards\Rebalance.cs" />
-    <Compile Include="Cards\Template.cs" />
-    <Compile Include="Cards\Disable.cs" />
-    <Compile Include="Cards\Mafia.cs" />
-    <Compile Include="Cards\Thief.cs" />
-    <Compile Include="Cards\Bully.cs" />
+    <Compile Include="Cards\TODO\Disable.cs" />
+    <Compile Include="Cards\TODO\Mafia.cs" />
+    <Compile Include="Cards\TODO\Thief.cs" />
+    <Compile Include="Cards\TODO\Bully.cs" />
     <Compile Include="GameEnhancementCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CardsManager.cs" />

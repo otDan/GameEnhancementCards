@@ -18,6 +18,22 @@ namespace GameEnhancementCards.Utils
             random = new System.Random();
         }
 
+        public static void RandomizePlayersCardAtPosition(CardPosition cardPosition)
+        {
+            foreach (Player player in PlayerManager.instance.players)
+            {
+                RandomizePlayerCardAtPosition(player, cardPosition);
+            }
+        }
+
+        public static void RemovePlayersCardAtPosition(CardPosition cardPosition)
+        {
+            foreach (Player player in PlayerManager.instance.players)
+            {
+                RemovePlayerCardAtPosition(player, cardPosition);
+            }
+        }
+
         public static void RandomizePlayerCardAtPosition(Player player, CardPosition cardPosition)
         {
             List<CardInfo> playerCards = player.data.currentCards;
