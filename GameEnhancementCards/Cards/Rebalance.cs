@@ -37,6 +37,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override GameObject GetCardArt()
         {
+            //Two characters and shuffling cards on top
             return null;
         }
         protected override CardInfo.Rarity GetRarity()

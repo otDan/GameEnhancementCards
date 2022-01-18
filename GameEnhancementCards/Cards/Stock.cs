@@ -50,14 +50,14 @@ namespace GameEnhancementCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Stats",
+                    stat = "Max Value",
                     amount = "+0%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Stats",
+                    stat = "Min Value",
                     amount = "-0%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }

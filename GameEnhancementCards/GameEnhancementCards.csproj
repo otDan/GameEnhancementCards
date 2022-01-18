@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Cards\Replace.cs" />
     <Compile Include="Cards\Negate.cs" />
-    <Compile Include="Cards\BadChoice.cs" />
+    <Compile Include="Cards\MissClick.cs" />
     <Compile Include="Cards\Crypto.cs" />
     <Compile Include="Cards\Nft.cs" />
     <Compile Include="Cards\Stock.cs" />
@@ -83,4 +83,7 @@
     <Folder Include="Assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\RealLifeEvents\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

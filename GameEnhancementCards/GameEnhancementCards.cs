@@ -5,6 +5,7 @@ using GameEnhancementCards.Cards;
 using HarmonyLib;
 using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using Jotunn.Utils;
+using GameEnhancementCards.Utils;
 
 namespace GameEnhancementCards
 {
@@ -20,7 +21,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "0.0.2";
+        public const string Version = "0.0.3";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -35,6 +36,8 @@ namespace GameEnhancementCards
         {
             instance = this;
 
+            //Updradable cards (Probably separate card pack)
+
             //Stealing cards
             CustomCard.BuildCard<Bully>();
             CustomCard.BuildCard<Thief>();
@@ -46,7 +49,7 @@ namespace GameEnhancementCards
             CustomCard.BuildCard<Nft>();
 
             //Removing cards
-            CustomCard.BuildCard<BadChoice>();
+            CustomCard.BuildCard<MissClick>();
             CustomCard.BuildCard<Negate>();
 
             //Replacing cards
