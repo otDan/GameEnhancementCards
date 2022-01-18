@@ -43,7 +43,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -51,7 +51,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.DestructiveRed;
+            return CardThemeColor.CardThemeColorType.FirepowerYellow;
         }
         public override string GetModName()
         {

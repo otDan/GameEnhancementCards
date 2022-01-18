@@ -18,6 +18,39 @@ namespace GameEnhancementCards.Utils
             random = new System.Random();
         }
 
+        public static void HandleRebalace()
+        {
+            var players = PlayerManager.instance.players;
+            List<CardInfo> cardsToBalance = new List<CardInfo>();
+
+            foreach (Player player in players)
+            {
+                cardsToBalance.AddRange(player.data.currentCards);
+                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
+            }
+
+            int cardsPerPlayer = (cardsToBalance.Count - 1) / (players.Count - 1);
+            cardsToBalance = GetRandomElements<CardInfo>(cardsToBalance, (cardsToBalance.Count - 1));
+
+            int playerIndex = 0;
+            foreach (CardInfo card in cardsToBalance)
+            {
+                Player player = players.ElementAt(playerIndex);
+                Unbound.Instance.ExecuteAfterFrames(10, () =>
+                {
+                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, card, false, "", 2f, 2f, true);
+                }
+                );
+                
+                if (playerIndex < (players.Count - 1))
+                {
+                    playerIndex++;
+                    continue;
+                }
+                playerIndex = 0;
+            }
+        }
+
         public static void RandomizePlayersCardAtPosition(CardPosition cardPosition)
         {
             foreach (Player player in PlayerManager.instance.players)
@@ -74,17 +107,17 @@ namespace GameEnhancementCards.Utils
             {
                 case PlayerAmount.ONE:
                     {
-                        players = GetRandomPlayers(players, 1);
+                        players = GetRandomElements<Player>(players, 1);
                         break;
                     }
                 case PlayerAmount.HALF:
                     {
-                        players = GetRandomPlayers(players, (players.Count - 1) / 2);
+                        players = GetRandomElements<Player>(players, (players.Count - 1) / 2);
                         break;
                     }
                 case PlayerAmount.ALL:
                     {
-                        players = GetRandomPlayers(players, players.Count - 1);
+                        players = GetRandomElements<Player>(players, players.Count - 1);
                         break;
                     }
             }
@@ -110,9 +143,9 @@ namespace GameEnhancementCards.Utils
             }
         }
 
-        private static List<Player> GetRandomPlayers(this IEnumerable<Player> players, int playersAmount)
+        private static List<T> GetRandomElements<T>(this IEnumerable<T> list, int elementsCount)
         {
-            return players.OrderBy(arg => random.Next()).Take(playersAmount).ToList();
+            return list.OrderBy(arg => Guid.NewGuid()).Take(elementsCount).ToList();
         }
 
         private static CardInfo PlayerCardAtPosition(Player player, List<CardInfo> playerCards, CardPosition cardPosition)

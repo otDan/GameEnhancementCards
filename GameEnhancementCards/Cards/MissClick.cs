@@ -52,7 +52,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.DestructiveRed;
+            return CardThemeColor.CardThemeColorType.EvilPurple;
         }
         public override string GetModName()
         {
