@@ -22,25 +22,23 @@ namespace GameEnhancementCards.Utils
         {
             var players = PlayerManager.instance.players;
             List<CardInfo> cardsToBalance = new List<CardInfo>();
+            Dictionary<Player, List<CardInfo>> playerCardsMap = new Dictionary<Player, List<CardInfo>>();
 
             foreach (Player player in players)
             {
+                playerCardsMap[player] = new List<CardInfo>();
                 cardsToBalance.AddRange(player.data.currentCards);
                 ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
             }
 
-            int cardsPerPlayer = (cardsToBalance.Count - 1) / (players.Count - 1);
             cardsToBalance = GetRandomElements<CardInfo>(cardsToBalance, (cardsToBalance.Count - 1));
 
             int playerIndex = 0;
+            
             foreach (CardInfo card in cardsToBalance)
             {
                 Player player = players.ElementAt(playerIndex);
-                Unbound.Instance.ExecuteAfterFrames(10, () =>
-                {
-                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, card, false, "", 2f, 2f, true);
-                }
-                );
+                playerCardsMap[player].Add(card);
                 
                 if (playerIndex < (players.Count - 1))
                 {
@@ -48,6 +46,20 @@ namespace GameEnhancementCards.Utils
                     continue;
                 }
                 playerIndex = 0;
+            }
+
+            int delay = 10;
+            foreach (var playerCardsPair in playerCardsMap)
+            {
+                var player = playerCardsPair.Key;
+                var cards = playerCardsPair.Value;
+                var floatArray = Enumerable.Repeat<float>(2f, cards.Count).ToArray();
+                Unbound.Instance.ExecuteAfterFrames(delay, () =>
+                {
+                    ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cards.ToArray(), false, new string[]{}, floatArray, floatArray, true);
+                }
+                );
+                delay += 10;
             }
         }
 

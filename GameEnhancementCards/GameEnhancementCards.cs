@@ -21,7 +21,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "0.0.3";
+        public const string Version = "1.0.1";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
