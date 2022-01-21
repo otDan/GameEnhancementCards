@@ -10,18 +10,20 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Crypto : CustomCard
+    class MissClick : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             CardsManager.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
+            CardsManager.RemovePlayerCardAtPosition(player, CardPosition.LAST);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -31,11 +33,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Crypto";
+            return "Miss Click";
         }
         protected override string GetDescription()
         {
-            return "Random stats change moderately in value each game.";
+            return "Remove your last card pick.";
         }
         protected override GameObject GetCardArt()
         {
@@ -43,27 +45,11 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]
-            {
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Max Value",
-                    amount = "+0%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Min Value",
-                    amount = "-0%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
-            };
+            return new CardInfoStat[]{};
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {

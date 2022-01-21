@@ -1,24 +1,79 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnboundLib;
+using UnboundLib.Cards;
 using UnboundLib.Utils;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UI.ProceduralImage;
 
 namespace GameEnhancementCards.Utils
 {
     public static class CardsManager
     {
-        private static System.Random random;
+        private static System.Random random = new System.Random();
+        public static List<CustomCard> loadedArt { get; private set; }
+        private static Color firstColor = new Color(1f, 0f, 0.314f, 0.94f);
+        private static Color secondColor = new Color(1f, 1f, 1f, 0.85f);
+        private static Color textColor = new Color(1f, 1f, 1f, 0.92f);
 
         static CardsManager()
         {
-            random = new System.Random();
+            loadedArt = new List<CustomCard>();
         }
 
-        public static void HandleRebalace()
+        public static void CallNegate()
+        {
+            foreach (Player player in PlayerManager.instance.players)
+            {
+                var lastCards = GameActions.lastRoundCards[player];
+                foreach (CardInfo card in lastCards)
+                {
+                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, card, ModdingUtils.Utils.Cards.SelectionType.Newest);
+                }
+            }
+        }
+
+        public static GameObject FindObjectInChilds(this GameObject gameObject, string gameObjectName)
+        {
+            Transform[] children = gameObject.GetComponentsInChildren<Transform>(true);
+            foreach (Transform item in children)
+            {
+                if (item.name == gameObjectName)
+                {
+                    return item.gameObject;
+                }
+            }
+
+            return null;
+        }
+
+        public static List<GameObject> FindObjectsInChilds(this GameObject gameObject, string gameObjectName)
+        {
+            List<GameObject> returnObjects = new List<GameObject>();
+            Transform[] children = gameObject.GetComponentsInChildren<Transform>(true);
+            foreach (Transform item in children)
+            {
+                if (item.name.Contains(gameObjectName))
+                {
+                    returnObjects.Add(gameObject);
+                }
+            }
+
+            return returnObjects;
+        }
+
+        public static void CallRebalance()
+        {
+            Unbound.Instance.StartCoroutine(HandleRebalace());
+        }
+
+        public static IEnumerator HandleRebalace()
         {
             var players = PlayerManager.instance.players;
             List<CardInfo> cardsToBalance = new List<CardInfo>();
@@ -31,15 +86,26 @@ namespace GameEnhancementCards.Utils
                 ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
             }
 
-            cardsToBalance = GetRandomElements<CardInfo>(cardsToBalance, (cardsToBalance.Count - 1));
+            cardsToBalance = GetRandomElements<CardInfo>(cardsToBalance, cardsToBalance.Count);
 
             int playerIndex = 0;
-            
+
+            List<CardInfo> notAllowedCards = new List<CardInfo>();
             foreach (CardInfo card in cardsToBalance)
             {
                 Player player = players.ElementAt(playerIndex);
                 playerCardsMap[player].Add(card);
-                
+
+                if (ModdingUtils.Utils.Cards.instance.PlayerIsAllowedCard(player, card))
+                {
+                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, card, false, "", 2f, 2f, true);
+                    yield return WaitFor.Frames(10);
+                }
+                else
+                {
+                    notAllowedCards.Add(card);
+                }
+
                 if (playerIndex < (players.Count - 1))
                 {
                     playerIndex++;
@@ -48,18 +114,22 @@ namespace GameEnhancementCards.Utils
                 playerIndex = 0;
             }
 
-            int delay = 10;
-            foreach (var playerCardsPair in playerCardsMap)
+            foreach (CardInfo card in notAllowedCards)
             {
-                var player = playerCardsPair.Key;
-                var cards = playerCardsPair.Value;
-                var floatArray = Enumerable.Repeat<float>(2f, cards.Count).ToArray();
-                Unbound.Instance.ExecuteAfterFrames(delay, () =>
+                bool assigned = false;
+                players = GetRandomElements<Player>(players, players.Count);
+                foreach (Player player in players)
                 {
-                    ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cards.ToArray(), false, new string[]{}, floatArray, floatArray, true);
+                    if (!assigned)
+                    {
+                        if (ModdingUtils.Utils.Cards.instance.PlayerIsAllowedCard(player, card))
+                        {
+                            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, card, false, "", 2f, 2f, true);
+                            assigned = true;
+                            yield return WaitFor.Frames(10);
+                        }
+                    }
                 }
-                );
-                delay += 10;
             }
         }
 
@@ -124,12 +194,12 @@ namespace GameEnhancementCards.Utils
                     }
                 case PlayerAmount.HALF:
                     {
-                        players = GetRandomElements<Player>(players, (players.Count - 1) / 2);
+                        players = GetRandomElements<Player>(players, players.Count / 2);
                         break;
                     }
                 case PlayerAmount.ALL:
                     {
-                        players = GetRandomElements<Player>(players, players.Count - 1);
+                        players = GetRandomElements<Player>(players, players.Count);
                         break;
                     }
             }
@@ -221,6 +291,98 @@ namespace GameEnhancementCards.Utils
             }
 
             return cards[random.Next(cards.Count())];
+        }
+
+        public static void LoadCard(CustomCard customCard)
+        {
+            if (!loadedArt.Contains(customCard))
+            {
+                List<GameObject> ballObjects = FindObjectsInChilds(customCard.gameObject, "SmallBall");
+                List<GameObject> triangleObjects = FindObjectsInChilds(customCard.gameObject, "Triangle");
+                foreach (GameObject triangleObject in triangleObjects)
+                {
+                    var triangleImageObjects = triangleObject.gameObject.GetComponentsInChildren(typeof(Image), true).Where(x => x.gameObject.transform.parent.name == "Triangle").ToList();
+                    foreach (Image image in triangleImageObjects)
+                    {
+                        image.color = secondColor;
+                    }
+                }
+                var faceObject = FindObjectInChilds(customCard.gameObject, "Face");
+                GameObject.Destroy(faceObject);
+
+                var backObject = FindObjectInChilds(customCard.gameObject, "Back");
+                GameObject textObject = new GameObject("BackText");
+                textObject.AddComponent<TextMeshProUGUI>();
+                var backText = textObject.GetComponent<TextMeshProUGUI>();
+                backText.text = "GEC";
+                backText.fontSize = 12;
+                backText.transform.SetParent(backObject.transform);
+
+                var imageObjects = backObject.gameObject.GetComponentsInChildren<Image>(true);
+
+                foreach (Image image in imageObjects)
+                {
+                    image.color = firstColor;
+                }
+
+                var cardVisuals = customCard.cardInfo.GetComponentInChildren<CardVisuals>();
+                cardVisuals.chillColor = firstColor;
+
+                cardVisuals.toggleSelectionAction = delegate (bool boolean)
+                {
+                    Unbound.Instance.ExecuteAfterFrames(1, () =>
+                    {
+                        cardVisuals.defaultColor = firstColor;
+                        TextMeshProUGUI cardTextObject = (TextMeshProUGUI)customCard.gameObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true);
+                        cardTextObject.color = textColor;
+
+                        foreach (GameObject triangleObject in triangleObjects)
+                        {
+                            var triangleImageObjects = triangleObject.gameObject.GetComponentsInChildren(typeof(Image), true).Where(x => x.gameObject.transform.parent.name == "Triangle").ToList();
+                            foreach (Image image in triangleImageObjects)
+                            {
+                                image.color = secondColor;
+                            }
+                        }
+
+                        foreach (GameObject ballObject in ballObjects)
+                        {
+                            var ballImageObjects = ballObject.gameObject.GetComponentsInChildren(typeof(ProceduralImage), true).Where(x => x.gameObject.transform.name.Contains("SmallBall")).ToList();
+                            foreach (ProceduralImage image in ballImageObjects)
+                            {
+
+                                image.color = secondColor;
+                            }
+                        }
+
+                        /*textObject = new GameObject("BackText"); Rotations are fucked while adding no clue right now
+                        textObject.AddComponent<TextMeshProUGUI>();
+                        backText = textObject.GetComponent<TextMeshProUGUI>();
+                        backText.text = "GEC";
+                        backText.fontSize = 12;
+                        backText.transform.SetParent(faceObject.transform);*/
+                    }
+                    );
+                };
+                loadedArt.Add(customCard);
+            }
+        }
+    }
+
+    static class WaitFor
+    {
+        public static IEnumerator Frames(int frameCount)
+        {
+            if (frameCount <= 0)
+            {
+                throw new ArgumentOutOfRangeException("frameCount", "Cannot wait for less that 1 frame");
+            }
+
+            while (frameCount > 0)
+            {
+                frameCount--;
+                yield return null;
+            }
         }
     }
 

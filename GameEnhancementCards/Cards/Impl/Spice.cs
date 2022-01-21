@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Rebalance : CustomCard
+    class Spice : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            CardsManager.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
@@ -22,7 +22,7 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.HandleRebalace();
+            CardsManager.RandomizePlayersCardAtPosition(CardPosition.RANDOM);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -32,20 +32,19 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Rebalance";
+            return "Spice";
         }
         protected override string GetDescription()
         {
-            return "All cards of all players get redistributed.";
+            return "Spice up the game by replacing a random card of each player with a random one of the same rarity.";
         }
         protected override GameObject GetCardArt()
         {
-            //Two characters and shuffling cards on top
             return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
         protected override CardInfoStat[] GetStats()
         {

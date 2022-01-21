@@ -53,6 +53,10 @@
     <Reference Include="UnboundLib">
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -60,30 +64,40 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\Spice.cs" />
-    <Compile Include="Cards\Replace.cs" />
-    <Compile Include="Cards\Negate.cs" />
-    <Compile Include="Cards\MissClick.cs" />
+    <Compile Include="Cards\Impl\Gamble.cs" />
+    <Compile Include="Cards\Impl\Spice.cs" />
+    <Compile Include="Cards\Impl\Replace.cs" />
+    <Compile Include="Cards\Impl\Negate.cs" />
+    <Compile Include="Cards\Change\MissClick.cs" />
     <Compile Include="Cards\TODO\Crypto.cs" />
+    <Compile Include="Cards\Change\Agreed.cs" />
+    <Compile Include="Cards\Change\GoodGuy.cs" />
     <Compile Include="Cards\TODO\Nft.cs" />
     <Compile Include="Cards\TODO\Stock.cs" />
     <Compile Include="Cards\TODO\DisableLite.cs" />
-    <Compile Include="Cards\Rebalance.cs" />
+    <Compile Include="Cards\Impl\Rebalance.cs" />
     <Compile Include="Cards\TODO\Disable.cs" />
-    <Compile Include="Cards\Mafia.cs" />
-    <Compile Include="Cards\Thief.cs" />
-    <Compile Include="Cards\Bully.cs" />
+    <Compile Include="Cards\Change\Mafia.cs" />
+    <Compile Include="Cards\Change\Thief.cs" />
+    <Compile Include="Cards\Impl\Bully.cs" />
     <Compile Include="GameEnhancementCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CardsManager.cs" />
+    <Compile Include="Utils\GameActions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\RealLifeEvents\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"
+copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" C:\Users\ostas\Desktop\GEC\GameEnhancementCards.dll"
+call "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Release\build.bat"</PostBuildEvent>
   </PropertyGroup>
 </Project>
