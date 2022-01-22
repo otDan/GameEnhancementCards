@@ -18,3 +18,4 @@
 	- 1.1.0 - > Rework of most cards and general code cleanup
 	- 1.1.1 - > Remove game breaking logic
 	- 1.1.2 - > Bully, Thief, Mafia are back
+	- 1.1.3 - > Fixed card back colors

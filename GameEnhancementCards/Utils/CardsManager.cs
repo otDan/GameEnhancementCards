@@ -20,7 +20,7 @@ namespace GameEnhancementCards.Utils
     public static class CardsManager
     {
         private static System.Random random = new System.Random();
-        public static List<CardInfo> loadedArt { get; private set; }
+        public static List<CustomCard> loadedArt { get; private set; }
         private static Color firstColor = new Color(1f, 0f, 0.314f, 0.94f);
         private static Color secondColor = new Color(1f, 1f, 1f, 0.85f);
         private static Color textColor = new Color(1f, 1f, 1f, 0.92f);
@@ -29,7 +29,7 @@ namespace GameEnhancementCards.Utils
 
         static CardsManager()
         {
-            loadedArt = new List<CardInfo>();
+            loadedArt = new List<CustomCard>();
         }
 
         //Testing stuff
@@ -331,12 +331,12 @@ namespace GameEnhancementCards.Utils
             return cards[random.Next(cards.Count())];
         }
 
-        public static void LoadCard(CardInfo cardInfo)
+        public static void LoadCard(CustomCard customCard)
         {
-            if (!loadedArt.Contains(cardInfo))
+            if (!loadedArt.Contains(customCard))
             {
-                List<GameObject> ballObjects = FindObjectsInChilds(cardInfo.cardBase, "SmallBall");
-                List<GameObject> triangleObjects = FindObjectsInChilds(cardInfo.cardBase, "Triangle");
+                List<GameObject> ballObjects = FindObjectsInChilds(customCard.gameObject, "SmallBall");
+                List<GameObject> triangleObjects = FindObjectsInChilds(customCard.gameObject, "Triangle");
                 foreach (GameObject triangleObject in triangleObjects)
                 {
                     var triangleImageObjects = triangleObject.gameObject.GetComponentsInChildren(typeof(Image), true).Where(x => x.gameObject.transform.parent.name == "Triangle").ToList();
@@ -345,25 +345,18 @@ namespace GameEnhancementCards.Utils
                         image.color = secondColor;
                     }
                 }
-                var faceObject = FindObjectInChilds(cardInfo.cardBase, "Face");
+                var faceObject = FindObjectInChilds(customCard.gameObject, "Face");
                 GameObject.Destroy(faceObject);
 
-                var backObject = FindObjectInChilds(cardInfo.cardBase, "Back");
-                GameObject textObject = new GameObject("BackText");
-                textObject.AddComponent<TextMeshProUGUI>();
-                var backText = textObject.GetComponent<TextMeshProUGUI>();
-                backText.text = "GEC";
-                backText.fontSize = 12;
-                backText.transform.SetParent(backObject.transform);
+                var backObject = FindObjectInChilds(customCard.gameObject, "Back");
 
                 var imageObjects = backObject.gameObject.GetComponentsInChildren<Image>(true);
-
                 foreach (Image image in imageObjects)
                 {
                     image.color = firstColor;
                 }
 
-                var cardVisuals = cardInfo.cardBase.GetComponentInChildren<CardVisuals>();
+                var cardVisuals = customCard.cardInfo.GetComponentInChildren<CardVisuals>();
                 cardVisuals.chillColor = firstColor;
 
                 cardVisuals.toggleSelectionAction = delegate (bool boolean)
@@ -371,7 +364,7 @@ namespace GameEnhancementCards.Utils
                     Unbound.Instance.ExecuteAfterFrames(1, () =>
                     {
                         cardVisuals.defaultColor = firstColor;
-                        TextMeshProUGUI cardTextObject = (TextMeshProUGUI) cardInfo.cardBase.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true);
+                        TextMeshProUGUI cardTextObject = (TextMeshProUGUI)customCard.gameObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true);
                         cardTextObject.color = textColor;
 
                         foreach (GameObject triangleObject in triangleObjects)
@@ -402,7 +395,7 @@ namespace GameEnhancementCards.Utils
                     }
                     );
                 };
-                loadedArt.Add(cardInfo);
+                loadedArt.Add(customCard);
             }
         }
     }
