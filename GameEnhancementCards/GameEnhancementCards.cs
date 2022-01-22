@@ -23,7 +23,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "1.1.0";
+        public const string Version = "1.1.1";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -45,7 +45,7 @@ namespace GameEnhancementCards
             //Updradable cards (Probably separate card pack)
 
             //Stealing cards
-            CustomCard.BuildCard<Bully>();
+            CustomCard.BuildCard<Bully>(cardInfo => CardsManager.LoadCard(cardInfo));
             //CustomCard.BuildCard<Thief>(); Needs rebalance or just not a good idea
             //CustomCard.BuildCard<Mafia>(); Needs rebalance or just not a good idea
 
@@ -56,17 +56,17 @@ namespace GameEnhancementCards
 
             //Removing cards
             //CustomCard.BuildCard<MissClick>(); Needs a good stat improvement to have it balanced
-            CustomCard.BuildCard<Negate>(); //Rewrite handling of this to actually remove all cards from last round (save cards of players at end of pick phase)
+            //CustomCard.BuildCard<Negate>(cardInfo => CardsManager.LoadCard(cardInfo)); //Fix needed
 
             //Replacing cards
-            CustomCard.BuildCard<Replace>();
-            CustomCard.BuildCard<Spice>();
+            CustomCard.BuildCard<Replace>(cardInfo => CardsManager.LoadCard(cardInfo));
+            CustomCard.BuildCard<Spice>(cardInfo => CardsManager.LoadCard(cardInfo));
 
             //No cathegory cards
-            CustomCard.BuildCard<Gamble>();
+            CustomCard.BuildCard<Gamble>(cardInfo => CardsManager.LoadCard(cardInfo));
             //CustomCard.BuildCard<Agreed>(); TODO
             //CustomCard.BuildCard<GoodGuy>(); TODO
-            CustomCard.BuildCard<Rebalance>();
+            CustomCard.BuildCard<Rebalance>(cardInfo => CardsManager.LoadCard(cardInfo));
 
             //CustomCard.BuildCard<OneMoreGun>(); Adds a card that makes you shoot more stuff but around you so first pick will be one shot in front and one shot in the back
             //CustomCard.BuildCard<ActualHoming>(); Homing that doesn't look at you as target

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sonigon;
+using Sonigon.Internal;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,23 +19,45 @@ namespace GameEnhancementCards.Utils
     public static class CardsManager
     {
         private static System.Random random = new System.Random();
-        public static List<CustomCard> loadedArt { get; private set; }
+        public static List<CardInfo> loadedArt { get; private set; }
         private static Color firstColor = new Color(1f, 0f, 0.314f, 0.94f);
         private static Color secondColor = new Color(1f, 1f, 1f, 0.85f);
         private static Color textColor = new Color(1f, 1f, 1f, 0.92f);
 
+        private static Dictionary<string, SoundEvent> _soundCache = new Dictionary<string, SoundEvent>();
+
         static CardsManager()
         {
-            loadedArt = new List<CustomCard>();
+            loadedArt = new List<CardInfo>();
         }
+
+        //Testing stuff
+        /*public static void PlaySound(GameObject gameObject)
+        {
+            SoundManager.Instance.Play(GetSound("UI_Card_Pick_SE"), gameObject.transform);
+        }
+
+        private static SoundEvent GetSound(string name)
+        {
+            if (!_soundCache.ContainsKey(name))
+            {
+                var soundEvent = GameObject.Find("/SonigonSoundEventPool").transform.Find(name).gameObject?.GetComponent<InstanceSoundEvent>().soundEvent;
+                _soundCache.Add(name, soundEvent);
+            }
+
+            return _soundCache[name];
+        }*/
 
         public static void CallNegate()
         {
+            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Negate card called.");
             foreach (Player player in PlayerManager.instance.players)
             {
-                var lastCards = GameActions.lastRoundCards[player];
+                var lastCards = GameActions.lastRoundCards[player.playerID];
+                UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Negate card called for player {player.playerID} for {lastCards.Count} cards {lastCards}.");
                 foreach (CardInfo card in lastCards)
                 {
+                    UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Negate card removed {card.cardName}.");
                     ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, card, ModdingUtils.Utils.Cards.SelectionType.Newest);
                 }
             }
@@ -293,12 +317,12 @@ namespace GameEnhancementCards.Utils
             return cards[random.Next(cards.Count())];
         }
 
-        public static void LoadCard(CustomCard customCard)
+        public static void LoadCard(CardInfo cardInfo)
         {
-            if (!loadedArt.Contains(customCard))
+            if (!loadedArt.Contains(cardInfo))
             {
-                List<GameObject> ballObjects = FindObjectsInChilds(customCard.gameObject, "SmallBall");
-                List<GameObject> triangleObjects = FindObjectsInChilds(customCard.gameObject, "Triangle");
+                List<GameObject> ballObjects = FindObjectsInChilds(cardInfo.cardBase, "SmallBall");
+                List<GameObject> triangleObjects = FindObjectsInChilds(cardInfo.cardBase, "Triangle");
                 foreach (GameObject triangleObject in triangleObjects)
                 {
                     var triangleImageObjects = triangleObject.gameObject.GetComponentsInChildren(typeof(Image), true).Where(x => x.gameObject.transform.parent.name == "Triangle").ToList();
@@ -307,10 +331,10 @@ namespace GameEnhancementCards.Utils
                         image.color = secondColor;
                     }
                 }
-                var faceObject = FindObjectInChilds(customCard.gameObject, "Face");
+                var faceObject = FindObjectInChilds(cardInfo.cardBase, "Face");
                 GameObject.Destroy(faceObject);
 
-                var backObject = FindObjectInChilds(customCard.gameObject, "Back");
+                var backObject = FindObjectInChilds(cardInfo.cardBase, "Back");
                 GameObject textObject = new GameObject("BackText");
                 textObject.AddComponent<TextMeshProUGUI>();
                 var backText = textObject.GetComponent<TextMeshProUGUI>();
@@ -325,7 +349,7 @@ namespace GameEnhancementCards.Utils
                     image.color = firstColor;
                 }
 
-                var cardVisuals = customCard.cardInfo.GetComponentInChildren<CardVisuals>();
+                var cardVisuals = cardInfo.cardBase.GetComponentInChildren<CardVisuals>();
                 cardVisuals.chillColor = firstColor;
 
                 cardVisuals.toggleSelectionAction = delegate (bool boolean)
@@ -333,7 +357,7 @@ namespace GameEnhancementCards.Utils
                     Unbound.Instance.ExecuteAfterFrames(1, () =>
                     {
                         cardVisuals.defaultColor = firstColor;
-                        TextMeshProUGUI cardTextObject = (TextMeshProUGUI)customCard.gameObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true);
+                        TextMeshProUGUI cardTextObject = (TextMeshProUGUI) cardInfo.cardBase.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true);
                         cardTextObject.color = textColor;
 
                         foreach (GameObject triangleObject in triangleObjects)
@@ -364,7 +388,7 @@ namespace GameEnhancementCards.Utils
                     }
                     );
                 };
-                loadedArt.Add(customCard);
+                loadedArt.Add(cardInfo);
             }
         }
     }

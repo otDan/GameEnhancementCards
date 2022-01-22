@@ -10,56 +10,72 @@ namespace GameEnhancementCards.Utils
 {
     public static class GameActions
     {
-        private static Dictionary<Player, List<CardInfo>> usedRoundCards = new Dictionary<Player, List<CardInfo>>();
-        public static Dictionary<Player, List<CardInfo>> lastRoundCards { get; private set; }
+        private static Dictionary<int, List<CardInfo>> usedRoundCards = new Dictionary<int, List<CardInfo>>();
+        public static Dictionary<int, List<CardInfo>> lastRoundCards { get; private set; }
         private static bool firstPick = true;
 
         static GameActions()
         {
-            lastRoundCards = new Dictionary<Player, List<CardInfo>>();
+            lastRoundCards = new Dictionary<int, List<CardInfo>>();
         }
 
         internal static IEnumerator PickEnd(IGameModeHandler gameModeHandler)
         {
-            if (firstPick) 
-            {
-                foreach (Player player in PlayerManager.instance.players)
+            /*
+            try {
+                if (firstPick)
                 {
-                    if (!lastRoundCards.ContainsKey(player))
+                    foreach (Player player in PlayerManager.instance.players)
                     {
-                        lastRoundCards[player] = new List<CardInfo>();
-                        
+                        if (!lastRoundCards.ContainsKey(player.playerID))
+                        {
+                            lastRoundCards[player.playerID] = new List<CardInfo>(player.data.currentCards);
+                        }
+                        if (!usedRoundCards.ContainsKey(player.playerID))
+                        {
+                            usedRoundCards[player.playerID] = new List<CardInfo>();
+                        }
                     }
-                    if (!usedRoundCards.ContainsKey(player))
-                    {
-                        usedRoundCards[player] = new List<CardInfo>();
-
-                    }
-
-                    lastRoundCards[player].AddRange(player.data.currentCards);
+                    firstPick = false;
                 }
-                firstPick = false;
-            }
-            else
-            {
-                foreach (Player player in PlayerManager.instance.players)
+                else
                 {
-                    if (!lastRoundCards.ContainsKey(player))
+                    foreach (Player player in PlayerManager.instance.players)
                     {
-                        lastRoundCards[player] = new List<CardInfo>();
+                        if (!lastRoundCards.ContainsKey(player.playerID))
+                        {
+                            lastRoundCards[player.playerID] = new List<CardInfo>();
+                        }
+                        if (!usedRoundCards.ContainsKey(player.playerID))
+                        {
+                            usedRoundCards[player.playerID] = new List<CardInfo>();
+                        }
 
+                        usedRoundCards[player.playerID].AddRange(player.data.currentCards.Where(x => lastRoundCards[player.playerID].Contains(x)));
+                        foreach (var usedCard in usedRoundCards[player.playerID])
+                        {
+                            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Used card {usedCard}.");
+                        }
+
+                        List<int> keys = new List<int>(lastRoundCards.Keys);
+                        foreach (int key in keys)
+                        {
+                            lastRoundCards[key] = new List<CardInfo>();
+                        }
+
+                        lastRoundCards[player.playerID].AddRange(player.data.currentCards.Where(x => !usedRoundCards[player.playerID].Contains(x)));
+                        foreach (var lastCard in lastRoundCards[player.playerID])
+                        {
+                            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Last card {lastCard}.");
+                        }
                     }
-                    if (!usedRoundCards.ContainsKey(player))
-                    {
-                        usedRoundCards[player] = new List<CardInfo>();
-
-                    }
-
-                    usedRoundCards[player].AddRange(player.data.currentCards.Where(x => lastRoundCards[player].Contains(x)));
-                    lastRoundCards.Clear();
-                    lastRoundCards[player].AddRange(player.data.currentCards.Where(x => !usedRoundCards[player].Contains(x)));
                 }
             }
+            catch(Exception exception)
+            {
+                UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
+            }
+            */
 
             yield break;
         }
@@ -76,7 +92,7 @@ namespace GameEnhancementCards.Utils
 
         internal static IEnumerator GameEnd(IGameModeHandler gameModeHandler)
         {
-            lastRoundCards = new Dictionary<Player, List<CardInfo>>();
+            lastRoundCards = new Dictionary<int, List<CardInfo>>();
             firstPick = true;
             yield break;
         }

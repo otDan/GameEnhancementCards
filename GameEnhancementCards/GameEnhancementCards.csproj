@@ -49,6 +49,10 @@
     <Reference Include="ModdingUtils">
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Pykess-ModdingUtils\ModdingUtils.dll</HintPath>
     </Reference>
+    <Reference Include="SonigonAudioEngine.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\SonigonAudioEngine.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="UnboundLib">
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
@@ -73,7 +77,7 @@
     <Compile Include="Cards\Impl\Gamble.cs" />
     <Compile Include="Cards\Impl\Spice.cs" />
     <Compile Include="Cards\Impl\Replace.cs" />
-    <Compile Include="Cards\Impl\Negate.cs" />
+    <Compile Include="Cards\Change\Negate.cs" />
     <Compile Include="Cards\Change\MissClick.cs" />
     <Compile Include="Cards\TODO\Crypto.cs" />
     <Compile Include="Cards\Change\Agreed.cs" />
@@ -93,6 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="manifest.json" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
