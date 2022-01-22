@@ -21,7 +21,7 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.StealPlayersCardAtPosition(player, PlayerAmount.ONE, CardPosition.RANDOM);
+            CardsManager.StealPlayersCardOfRarity(player, CardInfo.Rarity.Common, PlayerAmount.ONE);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -35,7 +35,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Steal permanently a random card from a random player.";
+            return "Steal permanently a random card common card from a random player.";
         }
         protected override GameObject GetCardArt()
         {
@@ -43,7 +43,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {

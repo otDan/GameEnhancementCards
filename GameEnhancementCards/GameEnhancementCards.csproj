@@ -74,7 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\Impl\Gamble.cs" />
+    <Compile Include="Cards\Impl\AnotherChance.cs" />
     <Compile Include="Cards\Impl\Spice.cs" />
     <Compile Include="Cards\Impl\Replace.cs" />
     <Compile Include="Cards\Change\Negate.cs" />
@@ -87,8 +87,8 @@
     <Compile Include="Cards\TODO\DisableLite.cs" />
     <Compile Include="Cards\Impl\Rebalance.cs" />
     <Compile Include="Cards\TODO\Disable.cs" />
-    <Compile Include="Cards\Change\Mafia.cs" />
-    <Compile Include="Cards\Change\Thief.cs" />
+    <Compile Include="Cards\Impl\Mafia.cs" />
+    <Compile Include="Cards\Impl\Thief.cs" />
     <Compile Include="Cards\Impl\Bully.cs" />
     <Compile Include="GameEnhancementCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +106,8 @@
   <PropertyGroup>
     <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"
 copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" C:\Users\ostas\Desktop\GEC\GameEnhancementCards.dll"
+copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\manifest.json" C:\Users\ostas\Desktop\GEC\manifest.json"
+copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\README.md" C:\Users\ostas\Desktop\GEC\README.md"
 call "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Release\build.bat"</PostBuildEvent>
   </PropertyGroup>
 </Project>

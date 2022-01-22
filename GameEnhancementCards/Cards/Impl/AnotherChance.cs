@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Gamble : CustomCard
+    class AnotherChance : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -31,11 +31,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Gamble";
+            return "Another Chance";
         }
         protected override string GetDescription()
         {
-            return "Replace your last card pick with a random card.";
+            return "Replace your last card with a random card.";
         }
         protected override GameObject GetCardArt()
         {

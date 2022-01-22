@@ -36,7 +36,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Remove your last card pick.";
+            return "Remove your last card and get one more pick.";
         }
         protected override GameObject GetCardArt()
         {

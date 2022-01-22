@@ -23,7 +23,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "1.1.1";
+        public const string Version = "1.1.2";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -46,8 +46,8 @@ namespace GameEnhancementCards
 
             //Stealing cards
             CustomCard.BuildCard<Bully>(cardInfo => CardsManager.LoadCard(cardInfo));
-            //CustomCard.BuildCard<Thief>(); Needs rebalance or just not a good idea
-            //CustomCard.BuildCard<Mafia>(); Needs rebalance or just not a good idea
+            CustomCard.BuildCard<Thief>(cardInfo => CardsManager.LoadCard(cardInfo));
+            CustomCard.BuildCard<Mafia>(cardInfo => CardsManager.LoadCard(cardInfo));
 
             //Market cards needs logic done
             //CustomCard.BuildCard<Stock>();
@@ -63,7 +63,7 @@ namespace GameEnhancementCards
             CustomCard.BuildCard<Spice>(cardInfo => CardsManager.LoadCard(cardInfo));
 
             //No cathegory cards
-            CustomCard.BuildCard<Gamble>(cardInfo => CardsManager.LoadCard(cardInfo));
+            CustomCard.BuildCard<AnotherChance>(cardInfo => CardsManager.LoadCard(cardInfo));
             //CustomCard.BuildCard<Agreed>(); TODO
             //CustomCard.BuildCard<GoodGuy>(); TODO
             CustomCard.BuildCard<Rebalance>(cardInfo => CardsManager.LoadCard(cardInfo));

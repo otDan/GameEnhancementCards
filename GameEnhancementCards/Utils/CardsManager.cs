@@ -13,6 +13,7 @@ using UnboundLib.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
+using static ModdingUtils.Utils.Cards;
 
 namespace GameEnhancementCards.Utils
 {
@@ -58,8 +59,8 @@ namespace GameEnhancementCards.Utils
                 foreach (CardInfo card in lastCards)
                 {
                     UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Negate card removed {card.cardName}.");
-                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, card, ModdingUtils.Utils.Cards.SelectionType.Newest);
                 }
+                ModdingUtils.Utils.Cards.instance.RemoveCardsFromPlayer(player, lastCards.ToArray(), SelectionType.Newest);
             }
         }
 
@@ -157,6 +158,19 @@ namespace GameEnhancementCards.Utils
             }
         }
 
+        public static void GivePlayersCard(CardInfo card)
+        {
+            foreach (Player player in PlayerManager.instance.players)
+            {
+                GivePlayerCard(player, card);
+            }
+        }
+
+        public static void GivePlayerCard(Player player, CardInfo card)
+        {
+            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, card, false, "", 2f, 2f, true);
+        }
+
         public static void RandomizePlayersCardAtPosition(CardPosition cardPosition)
         {
             foreach (Player player in PlayerManager.instance.players)
@@ -203,7 +217,7 @@ namespace GameEnhancementCards.Utils
             }
         }
 
-        public static void StealPlayersCardAtPosition(Player player, PlayerAmount playerAmount, CardPosition cardPosition)
+        public static void StealPlayersCardOfRarity(Player player, CardInfo.Rarity rarity, PlayerAmount playerAmount)
         {
             List<Player> players = new List<Player>(PlayerManager.instance.players);
             players.Remove(player);
@@ -230,14 +244,14 @@ namespace GameEnhancementCards.Utils
 
             foreach (Player fromPlayer in players)
             {
-                StealPlayerCardAtPosition(player, fromPlayer, cardPosition);
+                StealPlayerCardOfRarity(player, fromPlayer, rarity);
             }
         }
 
-        public static void StealPlayerCardAtPosition(Player player, Player fromPlayer, CardPosition cardPosition)
+        public static void StealPlayerCardOfRarity(Player player, Player fromPlayer, CardInfo.Rarity rarity)
         {
-            List<CardInfo> fromPlayerCards = fromPlayer.data.currentCards;
-            CardInfo stolenCard = PlayerCardAtPosition(player, fromPlayerCards, cardPosition);
+            List<CardInfo> fromPlayerCards = fromPlayer.data.currentCards.Where(x => x.rarity.Equals(rarity)).ToList();
+            CardInfo stolenCard = GetRandomElements<CardInfo>(fromPlayerCards, fromPlayerCards.Count()).First<CardInfo>();
             if (stolenCard != null)
             {
                 Unbound.Instance.ExecuteAfterFrames(10, () =>
