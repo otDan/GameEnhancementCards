@@ -106,6 +106,7 @@
   <PropertyGroup>
     <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"
 copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" C:\Users\ostas\Desktop\GEC\GameEnhancementCards.dll"
+copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\icon.png" C:\Users\ostas\Desktop\GEC\icon.png"
 copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\manifest.json" C:\Users\ostas\Desktop\GEC\manifest.json"
 copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\README.md" C:\Users\ostas\Desktop\GEC\README.md"
 call "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Release\build.bat"</PostBuildEvent>
