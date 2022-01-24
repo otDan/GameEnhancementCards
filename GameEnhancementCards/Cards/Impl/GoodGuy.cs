@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class MissClick : CustomCard
+    class GoodGuy : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -23,7 +23,8 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.RemovePlayerCardAtPosition(player, CardPosition.LAST);
+            CardsManager.GivePlayersCard(player, PlayerType.TEAM, CardInfo.Rarity.Uncommon);
+            CardsManager.GivePlayersCard(player, PlayerType.ENEMY, CardInfo.Rarity.Common);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -33,11 +34,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Miss Click";
+            return "Good Guy";
         }
         protected override string GetDescription()
         {
-            return "Remove your last card and get one more pick.";
+            return "Gives a random uncommon card to your team and a random common to all your enemies.";
         }
         protected override GameObject GetCardArt()
         {
@@ -45,7 +46,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {

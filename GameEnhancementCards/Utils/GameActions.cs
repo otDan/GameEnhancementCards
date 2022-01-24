@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnboundLib.Cards;
 using UnboundLib.GameModes;
 
 namespace GameEnhancementCards.Utils
@@ -21,8 +22,9 @@ namespace GameEnhancementCards.Utils
 
         internal static IEnumerator PickEnd(IGameModeHandler gameModeHandler)
         {
-            /*
             try {
+                CardsManager.loadedArt = new List<CustomCard>();
+
                 if (firstPick)
                 {
                     foreach (Player player in PlayerManager.instance.players)
@@ -54,7 +56,7 @@ namespace GameEnhancementCards.Utils
                         usedRoundCards[player.playerID].AddRange(player.data.currentCards.Where(x => lastRoundCards[player.playerID].Contains(x)));
                         foreach (var usedCard in usedRoundCards[player.playerID])
                         {
-                            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Used card {usedCard}.");
+                            //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Used card {usedCard}.");
                         }
 
                         List<int> keys = new List<int>(lastRoundCards.Keys);
@@ -66,25 +68,14 @@ namespace GameEnhancementCards.Utils
                         lastRoundCards[player.playerID].AddRange(player.data.currentCards.Where(x => !usedRoundCards[player.playerID].Contains(x)));
                         foreach (var lastCard in lastRoundCards[player.playerID])
                         {
-                            UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Last card {lastCard}.");
+                            //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {player.playerID} Last card {lastCard}.");
                         }
                     }
                 }
             }
             catch(Exception exception)
             {
-                UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
-            }
-            */
-
-            yield break;
-        }
-
-        internal static IEnumerator GameStart(IGameModeHandler gameModeHandler)
-        {
-            foreach (var player in PlayerManager.instance.players)
-            {
-
+                //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
             }
 
             yield break;
@@ -92,8 +83,36 @@ namespace GameEnhancementCards.Utils
 
         internal static IEnumerator GameEnd(IGameModeHandler gameModeHandler)
         {
+            //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Game ended.");
             lastRoundCards = new Dictionary<int, List<CardInfo>>();
             firstPick = true;
+            yield break;
+        }
+
+        internal static IEnumerator GameStart(IGameModeHandler gameModeHandler)
+        {
+            try
+            {
+                CardsManager.loadedArt = new List<CustomCard>();
+            }
+            catch (Exception exception)
+            {
+                //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
+            }
+
+            yield break;
+        }
+
+        internal static IEnumerator InitEnd(IGameModeHandler gameModeHandler)
+        {
+            try
+            {
+                CardsManager.loadedArt = new List<CustomCard>();
+            }
+            catch (Exception exception)
+            {
+                //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
+            }
             yield break;
         }
     }

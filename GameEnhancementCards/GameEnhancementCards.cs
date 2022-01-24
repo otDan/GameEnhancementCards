@@ -23,7 +23,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "1.1.3";
+        public const string Version = "1.1.4";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -39,6 +39,7 @@ namespace GameEnhancementCards
         {
             instance = this;
 
+            GameModeManager.AddHook(GameModeHooks.HookInitEnd, GameActions.InitEnd);
             GameModeManager.AddHook(GameModeHooks.HookGameStart, GameActions.GameStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameActions.GameEnd);
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, GameActions.PickEnd);
@@ -56,7 +57,7 @@ namespace GameEnhancementCards
             //CustomCard.BuildCard<Nft>();
 
             //Removing cards
-            //CustomCard.BuildCard<MissClick>(); Needs a good stat improvement to have it balanced
+            CustomCard.BuildCard<MissClick>();
             //CustomCard.BuildCard<Negate>(cardInfo => CardsManager.LoadCard(cardInfo)); //Fix needed
 
             //Replacing cards
@@ -66,8 +67,10 @@ namespace GameEnhancementCards
             //No cathegory cards
             CustomCard.BuildCard<AnotherChance>();
             //CustomCard.BuildCard<Agreed>(); TODO
-            //CustomCard.BuildCard<GoodGuy>(); TODO
+            CustomCard.BuildCard<GoodGuy>();
             CustomCard.BuildCard<Rebalance>();
+            CustomCard.BuildCard<Ticket>();
+            CustomCard.BuildCard<PrizeBooth>();
 
             //CustomCard.BuildCard<OneMoreGun>(); Adds a card that makes you shoot more stuff but around you so first pick will be one shot in front and one shot in the back
             //CustomCard.BuildCard<ActualHoming>(); Homing that doesn't look at you as target
@@ -75,6 +78,12 @@ namespace GameEnhancementCards
             //Needs rethinking probably bad idea
             //CustomCard.BuildCard<Disable>();
             //CustomCard.BuildCard<DisableLite>();
+
+        }
+
+        void Update()
+        {
+            CardsManager.Update();
         }
     }
 }

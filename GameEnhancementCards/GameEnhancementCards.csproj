@@ -74,14 +74,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\Impl\PrizeBooth.cs" />
+    <Compile Include="Cards\Impl\Ticket.cs" />
     <Compile Include="Cards\Impl\AnotherChance.cs" />
     <Compile Include="Cards\Impl\Spice.cs" />
     <Compile Include="Cards\Impl\Replace.cs" />
     <Compile Include="Cards\Change\Negate.cs" />
-    <Compile Include="Cards\Change\MissClick.cs" />
+    <Compile Include="Cards\Impl\MissClick.cs" />
     <Compile Include="Cards\TODO\Crypto.cs" />
-    <Compile Include="Cards\Change\Agreed.cs" />
-    <Compile Include="Cards\Change\GoodGuy.cs" />
+    <Compile Include="Cards\TODO\Agreed.cs" />
+    <Compile Include="Cards\Impl\GoodGuy.cs" />
     <Compile Include="Cards\TODO\Nft.cs" />
     <Compile Include="Cards\TODO\Stock.cs" />
     <Compile Include="Cards\TODO\DisableLite.cs" />
