@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class DisableLite : CustomCard
+    class Disable : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
@@ -31,11 +31,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Disable Lite";
+            return "Disable";
         }
         protected override string GetDescription()
         {
-            return "Disable each turn a random card from one of your opponents.";
+            return "Disable each turn a random card of your opponents.";
         }
         protected override GameObject GetCardArt()
         {
@@ -43,7 +43,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {

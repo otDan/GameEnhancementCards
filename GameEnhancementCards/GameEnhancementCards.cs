@@ -1,12 +1,9 @@
 ﻿using BepInEx;
-using UnboundLib;
 using UnboundLib.Cards;
 using GameEnhancementCards.Cards;
 using HarmonyLib;
-using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using Jotunn.Utils;
 using GameEnhancementCards.Utils;
-using System.Collections;
 using UnboundLib.GameModes;
 
 namespace GameEnhancementCards
@@ -15,6 +12,7 @@ namespace GameEnhancementCards
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.willuwontu.rounds.managers", BepInDependency.DependencyFlags.HardDependency)]
     // Declares our mod to Bepin
     [BepInPlugin(ModId, ModName, Version)]
     // The game our mod is associated with
@@ -23,7 +21,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.GameEnhancementCards";
         private const string ModName = "GameEnhancementCards";
-        public const string Version = "1.1.4";
+        public const string Version = "2.0.0";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -38,53 +36,68 @@ namespace GameEnhancementCards
         void Start()
         {
             instance = this;
+            
+            // GameModeManager.AddHook(GameModeHooks.HookInitEnd, GameActions.InitEnd);
 
-            GameModeManager.AddHook(GameModeHooks.HookInitEnd, GameActions.InitEnd);
             GameModeManager.AddHook(GameModeHooks.HookGameStart, GameActions.GameStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameActions.GameEnd);
+
+            GameModeManager.AddHook(GameModeHooks.HookPickStart, GameActions.PickStart);
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, GameActions.PickEnd);
 
-            //Updradable cards (Probably separate card pack)
+            GameModeManager.AddHook(GameModeHooks.HookPlayerPickStart, GameActions.PlayerPickStart);
 
-            //Stealing cards
+            // Updradable cards (Probably separate card pack)
+
+            // Stealing cards
             CustomCard.BuildCard<Bully>();
             CustomCard.BuildCard<Thief>();
             CustomCard.BuildCard<Mafia>();
 
-            //Market cards needs logic done
+            // Market cards needs logic done
             //CustomCard.BuildCard<Stock>();
             //CustomCard.BuildCard<Crypto>();
             //CustomCard.BuildCard<Nft>();
 
-            //Removing cards
+            // Removing cards
             CustomCard.BuildCard<MissClick>();
-            //CustomCard.BuildCard<Negate>(cardInfo => CardsManager.LoadCard(cardInfo)); //Fix needed
+            //CustomCard.BuildCard<Negate>(cardInfo => CardController.LoadCard(cardInfo)); //Fix needed
 
-            //Replacing cards
+            // Replacing cards
             CustomCard.BuildCard<Replace>();
             CustomCard.BuildCard<Spice>();
 
-            //No cathegory cards
+            // No cathegory cards
             CustomCard.BuildCard<AnotherChance>();
-            //CustomCard.BuildCard<Agreed>(); TODO
+            CustomCard.BuildCard<Agreed>(); 
             CustomCard.BuildCard<GoodGuy>();
             CustomCard.BuildCard<Rebalance>();
             CustomCard.BuildCard<Ticket>();
+
+            // Ticket redeeming cards
             CustomCard.BuildCard<PrizeBooth>();
+            CustomCard.BuildCard<SketchyTrader>();
+            CustomCard.BuildCard<HellishDeals>();
+            CustomCard.BuildCard<GodOfTickets>();
 
             //CustomCard.BuildCard<OneMoreGun>(); Adds a card that makes you shoot more stuff but around you so first pick will be one shot in front and one shot in the back
             //CustomCard.BuildCard<ActualHoming>(); Homing that doesn't look at you as target
+            // I am the picker (25% to have one more pick each round)
+            // My bullets (The bullets you block activate your card effects)
 
             //Needs rethinking probably bad idea
             //CustomCard.BuildCard<Disable>();
             //CustomCard.BuildCard<DisableLite>();
 
+            
         }
 
-        void Update()
-        {
-            CardsManager.Update();
-        }
+        // void FixedUpdate()
+        // {
+        //     CardController.Update();
+        // }
     }
+
+    // public static 
 }
 

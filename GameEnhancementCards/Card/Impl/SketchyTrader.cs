@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Stock : CustomCard
+    class SketchyTrader : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
@@ -22,6 +22,11 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
+            List<ChanceCard> chanceCards = new List<ChanceCard>();
+            chanceCards.Add(new ChanceCard(CardController.Rarity.NONE, 15));
+            chanceCards.Add(new ChanceCard(CardController.Rarity.COMMON, 20));
+            chanceCards.Add(new ChanceCard(CardController.Rarity.UNCOMMON, 65));
+            CardController.CallTicketRedeemer(player, chanceCards);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -31,11 +36,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Stock";
+            return "Sketchy Trader";
         }
         protected override string GetDescription()
         {
-            return "Random stats change slightly in value each game.";
+            return "Pick this card to redeem your current tickets.";
         }
         protected override GameObject GetCardArt()
         {
@@ -52,15 +57,29 @@ namespace GameEnhancementCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Max Value",
-                    amount = "+0%",
+                    stat = "ticket:",
+                    amount = "For each",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Common card",
+                    amount = "20%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Uncommon card",
+                    amount = "65%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Min Value",
-                    amount = "-0%",
+                    stat = "Nothing",
+                    amount = "15%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

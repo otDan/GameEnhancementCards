@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class GoodGuy : CustomCard
+    class Thief : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
@@ -23,8 +23,7 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.GivePlayersCard(player, PlayerType.TEAM, CardInfo.Rarity.Uncommon);
-            CardsManager.GivePlayersCard(player, PlayerType.ENEMY, CardInfo.Rarity.Common);
+            CardController.StealPlayersCardOfRarity(player, CardInfo.Rarity.Uncommon, PlayerAmount.ONE);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -34,11 +33,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Good Guy";
+            return "Thief";
         }
         protected override string GetDescription()
         {
-            return "Gives a random uncommon card to your team and a random common to all your enemies.";
+            return "Steal a random uncommon card from a random player.";
         }
         protected override GameObject GetCardArt()
         {
@@ -46,11 +45,27 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Uncommon;
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[]
+            {
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "found:",
+                    amount = "No card",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Ticket cards",
+                    amount = "+2",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+            };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {

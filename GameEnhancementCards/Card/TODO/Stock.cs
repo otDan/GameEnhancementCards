@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Ticket : CustomCard
+    class Stock : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
@@ -31,11 +31,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Ticket";
+            return "Stock";
         }
         protected override string GetDescription()
         {
-            return "Redeem it at the Prize Booth.";
+            return "Random stats change slightly in value each game.";
         }
         protected override GameObject GetCardArt()
         {
@@ -47,7 +47,23 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[]
+            {
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Max Value",
+                    amount = "+0%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Min Value",
+                    amount = "-0%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
+            };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {

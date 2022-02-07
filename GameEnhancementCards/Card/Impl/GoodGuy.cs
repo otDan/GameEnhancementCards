@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Negate : CustomCard
+    class GoodGuy : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
@@ -23,7 +23,8 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.CallNegate();
+            CardController.GivePlayersCard(player, PlayerType.TEAM, CardController.Rarity.UNCOMMON);
+            CardController.GivePlayersCard(player, PlayerType.ENEMY, CardController.Rarity.COMMON);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -33,11 +34,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Negate";
+            return "Good Guy";
         }
         protected override string GetDescription()
         {
-            return "Remove all the cards picked in the last round.";
+            return "Gives a random uncommon card to your team and a random common to all your enemies.";
         }
         protected override GameObject GetCardArt()
         {

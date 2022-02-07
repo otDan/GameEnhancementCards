@@ -10,18 +10,22 @@ using UnityEngine;
 
 namespace GameEnhancementCards.Cards
 {
-    class Crypto : CustomCard
+    class HellishDeals : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
-            //
+            CardController.LoadCard(this);
+            //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
+            List<ChanceCard> chanceCards = new List<ChanceCard>();
+            chanceCards.Add(new ChanceCard(CardController.Rarity.RARE, 70));
+            chanceCards.Add(new ChanceCard(CardController.Rarity.CURSE, 30));
+            CardController.CallTicketRedeemer(player, chanceCards);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -31,11 +35,11 @@ namespace GameEnhancementCards.Cards
 
         protected override string GetTitle()
         {
-            return "Crypto";
+            return "Hellish Deal";
         }
         protected override string GetDescription()
         {
-            return "Random stats change moderately in value each game.";
+            return "Pick this card to redeem your current tickets.";
         }
         protected override GameObject GetCardArt()
         {
@@ -43,7 +47,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -52,15 +56,22 @@ namespace GameEnhancementCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Max Value",
-                    amount = "+0%",
+                    stat = "ticket:",
+                    amount = "For each",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Rare card",
+                    amount = "70%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Min Value",
-                    amount = "-0%",
+                    stat = "Curse card",
+                    amount = "30%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

@@ -49,6 +49,7 @@
     <Reference Include="ModdingUtils">
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Pykess-ModdingUtils\ModdingUtils.dll</HintPath>
     </Reference>
+    <Reference Include="PhotonUnityNetworking, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="SonigonAudioEngine.Runtime, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\SonigonAudioEngine.Runtime.dll</HintPath>
@@ -68,37 +69,63 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="WillsWackyManagers">
+      <HintPath>C:\Users\ostas\Desktop\RoundsOthers\WillsWackyManagers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\Impl\PrizeBooth.cs" />
-    <Compile Include="Cards\Impl\Ticket.cs" />
-    <Compile Include="Cards\Impl\AnotherChance.cs" />
-    <Compile Include="Cards\Impl\Spice.cs" />
-    <Compile Include="Cards\Impl\Replace.cs" />
-    <Compile Include="Cards\Change\Negate.cs" />
-    <Compile Include="Cards\Impl\MissClick.cs" />
-    <Compile Include="Cards\TODO\Crypto.cs" />
-    <Compile Include="Cards\TODO\Agreed.cs" />
-    <Compile Include="Cards\Impl\GoodGuy.cs" />
-    <Compile Include="Cards\TODO\Nft.cs" />
-    <Compile Include="Cards\TODO\Stock.cs" />
-    <Compile Include="Cards\TODO\DisableLite.cs" />
-    <Compile Include="Cards\Impl\Rebalance.cs" />
-    <Compile Include="Cards\TODO\Disable.cs" />
-    <Compile Include="Cards\Impl\Mafia.cs" />
-    <Compile Include="Cards\Impl\Thief.cs" />
-    <Compile Include="Cards\Impl\Bully.cs" />
+    <Compile Include="Asset\AssetManager.cs" />
+    <Compile Include="Card\Impl\GodOfTickets.cs" />
+    <Compile Include="Card\Impl\HellishDeals.cs" />
+    <Compile Include="Card\Impl\SketchyTrader.cs" />
+    <Compile Include="Card\Impl\PrizeBooth.cs" />
+    <Compile Include="Card\Impl\Ticket.cs" />
+    <Compile Include="Card\Impl\AnotherChance.cs" />
+    <Compile Include="Card\Impl\Spice.cs" />
+    <Compile Include="Card\Impl\Replace.cs" />
+    <Compile Include="Card\Change\Negate.cs" />
+    <Compile Include="Card\Impl\MissClick.cs" />
+    <Compile Include="Card\TODO\Crypto.cs" />
+    <Compile Include="Card\Impl\Agreed.cs" />
+    <Compile Include="Card\Impl\GoodGuy.cs" />
+    <Compile Include="Card\TODO\Nft.cs" />
+    <Compile Include="Card\TODO\Stock.cs" />
+    <Compile Include="Card\TODO\DisableLite.cs" />
+    <Compile Include="Card\Impl\Rebalance.cs" />
+    <Compile Include="Card\TODO\Disable.cs" />
+    <Compile Include="Card\Impl\Mafia.cs" />
+    <Compile Include="Card\Impl\Thief.cs" />
+    <Compile Include="Card\Impl\Bully.cs" />
     <Compile Include="GameEnhancementCards.cs" />
+    <Compile Include="Mono\CustomCardHandler.cs" />
+    <Compile Include="Mono\Legendary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\CardsManager.cs" />
-    <Compile Include="Utils\GameActions.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Util\CardController.cs" />
+    <Compile Include="Util\GameActions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <EmbeddedResource Include="Asset\gec_assets" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="manifest.json" />

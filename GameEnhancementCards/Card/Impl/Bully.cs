@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameEnhancementCards.Asset;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace GameEnhancementCards.Cards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardsManager.LoadCard(this);
+            CardController.LoadCard(this);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
@@ -23,7 +24,7 @@ namespace GameEnhancementCards.Cards
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardsManager.StealPlayersCardOfRarity(player, CardInfo.Rarity.Common, PlayerAmount.ONE);
+            CardController.StealPlayersCardOfRarity(player, CardInfo.Rarity.Common, PlayerAmount.ONE);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -37,11 +38,11 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Steal permanently a random common card from a random player.";
+            return "Steal a random common card from a random player.";
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return AssetManager.BullyCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -49,7 +50,23 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[]
+            {
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "found:",
+                    amount = "No card",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Ticket card",
+                    amount = "+1",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+            };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {

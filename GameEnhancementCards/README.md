@@ -11,10 +11,12 @@
 
 | CARD | DESCRIPTION |
 | - | - |
-| Bully | Steal permanently a random common card from a random player. |
+| Bully | Steal a random common card from a random player. |
 | Replace | Replace your last card pick with a card of the same rarity. |
 | Miss Click | Remove your last card and get one ticket. |
 | Ticket | Redeem it at the Prize Booth. |
+| Prize Booth | Redeem all your tickets here. |
+| Sketchy Trader | Pick this card to redeem your current tickets. |
 
 ## ![#1589F0](https://via.placeholder.com/25/1589F0/000000?text=+) Uncommon ![#1589F0](https://via.placeholder.com/25/1589F0/000000?text=+)
 
@@ -22,18 +24,40 @@
 | - | - |
 | Another Chance | Replace your last card with a random card. |
 | Spice | Spice up the game by replacing a random card of each player with a random one of the same rarity. |
-| Thief | Steal permanently a random uncommon card from a random player. |
+| Thief | Steal a random uncommon card from a random player. |
+| Agreed | Get the same cards that the previous player has picked. |
 
 ## ![#a816a6](https://via.placeholder.com/25/a816a6/000000?text=+) Rare ![#a816a6](https://via.placeholder.com/25/a816a6/000000?text=+)
 
 | CARD | DESCRIPTION |
 | - | - |
-| Mafia | Steal permanently a random rare card from a random player. |
+| Mafia | Steal a random rare card from a random player. |
 | Rebalance | All cards of all players get redistributed. |
 | Good Guy | Gives a random uncommon card to your team and a random common to all your enemies. |
-| Prize Booth | Redeem all your tickets here. |
+| Hellish Deals | Pick this card to redeem your current tickets. |
+
+## ![#f7f708](https://via.placeholder.com/25/f7f708/000000?text=+) Legendary ![#f7f708](https://via.placeholder.com/25/f7f708/000000?text=+)
+
+| CARD | DESCRIPTION |
+| - | - |
+| God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses of all players. |
 
 ## Versions
+- 2.0.0
+  - Added cards
+    - Agreed
+    - Sketchy Trader
+    - Hellish Deals
+    - God Of Tickets
+  - New legendary rarity 
+  - New card design 
+  - Improved performance
+  - Card art (art will be released usually once a day)
+    - Bully
+- 1.1.5
+  - Changed cards
+    - Prize Booth (Uncommon)
+  - Put card color update into fixed update
 - 1.1.4
   - Added cards 
     - Miss Click (Common)
