@@ -13,8 +13,8 @@
 | - | - |
 | Bully | Steal a random common card from a random player. |
 | Replace | Replace your last card pick with a card of the same rarity. |
-| Miss Click | Remove your last card and get one ticket. |
-| Ticket | Redeem it at the Prize Booth. |
+| Miss Click | Remove your last card. |
+| Ticket | Redeem with a ticket redeemer card. |
 | Prize Booth | Redeem all your tickets here. |
 | Sketchy Trader | Pick this card to redeem your current tickets. |
 
@@ -40,9 +40,13 @@
 
 | CARD | DESCRIPTION |
 | - | - |
-| God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses of all players. |
+| God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses from all players. |
 
 ## Versions
+- 2.0.1
+  - Card art
+    - Thief
+  - Fixed ticket text
 - 2.0.0
   - Added cards
     - Agreed

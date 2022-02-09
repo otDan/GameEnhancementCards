@@ -35,7 +35,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Redeem with a (CARD REDEEMER PLACEHOLDER).";
+            return "Redeem with a ticket redeemer card.";
         }
         protected override GameObject GetCardArt()
         {

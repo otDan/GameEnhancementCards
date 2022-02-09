@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameEnhancementCards.Asset;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return AssetManager.ThiefCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {

@@ -24,7 +24,7 @@ namespace GameEnhancementCards.Cards
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
             CardController.RemovePlayerCardAtPosition(player, CardPosition.LAST);
-            CardController.GiveConsolationPrize(player, CardInfo.Rarity.Common);
+            CardController.GiveConsolationPrize(player, CardInfo.Rarity.Uncommon);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -38,7 +38,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Remove your last card and get one ticket.";
+            return "Remove your last card.";
         }
         protected override GameObject GetCardArt()
         {
@@ -55,8 +55,8 @@ namespace GameEnhancementCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Ticket",
-                    amount = "+1",
+                    stat = "Ticket cards",
+                    amount = "+2",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

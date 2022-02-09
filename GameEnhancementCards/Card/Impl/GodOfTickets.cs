@@ -37,7 +37,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Pick this card to redeem your current tickets. Cleanses curses of all players.";
+            return "Pick this card to redeem your current tickets. Cleanses curses from all players.";
         }
         protected override GameObject GetCardArt()
         {

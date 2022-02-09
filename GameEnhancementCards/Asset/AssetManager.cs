@@ -12,5 +12,6 @@ namespace GameEnhancementCards.Asset
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("gec_assets", typeof(GameEnhancementCards).Assembly);
 
         public static GameObject BullyCard = Bundle.LoadAsset<GameObject>("C_Bully");
+        public static GameObject ThiefCard = Bundle.LoadAsset<GameObject>("C_Thief");
     }
 }
