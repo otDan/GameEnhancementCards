@@ -13,5 +13,6 @@ namespace GameEnhancementCards.Asset
 
         public static GameObject BullyCard = Bundle.LoadAsset<GameObject>("C_Bully");
         public static GameObject ThiefCard = Bundle.LoadAsset<GameObject>("C_Thief");
+        public static GameObject TicketCard = Bundle.LoadAsset<GameObject>("C_Ticket");
     }
 }

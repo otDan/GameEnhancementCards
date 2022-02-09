@@ -43,6 +43,9 @@
 | God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses from all players. |
 
 ## Versions
+- 2.0.2
+  - Card art
+    - Ticket
 - 2.0.1
   - Card art
     - Thief
