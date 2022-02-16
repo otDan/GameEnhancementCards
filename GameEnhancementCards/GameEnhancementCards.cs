@@ -1,9 +1,9 @@
 ﻿using BepInEx;
-using UnboundLib.Cards;
-using GameEnhancementCards.Cards;
+using GameEnhancementCards.Card.Impl;
+using GameEnhancementCards.Utils;
 using HarmonyLib;
 using Jotunn.Utils;
-using GameEnhancementCards.Utils;
+using UnboundLib.Cards;
 using UnboundLib.GameModes;
 
 namespace GameEnhancementCards
@@ -19,9 +19,9 @@ namespace GameEnhancementCards
     [BepInProcess("Rounds.exe")]
     public class GameEnhancementCards : BaseUnityPlugin
     {
-        private const string ModId = "ot.dan.rounds.GameEnhancementCards";
-        private const string ModName = "GameEnhancementCards";
-        public const string Version = "2.0.2";
+        private const string ModId = "ot.dan.rounds.gameenhancementcards";
+        private const string ModName = "Game Enhancement Cards";
+        public const string Version = "2.1.0";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -31,12 +31,13 @@ namespace GameEnhancementCards
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
             AssetUtils.LoadAssetBundleFromResources("", typeof(GameEnhancementCards).Assembly);
+            AssetUtils.LoadAssetBundleFromResources("", typeof(GameEnhancementCards).Assembly);
         }
 
         void Start()
         {
             instance = this;
-            
+
             // GameModeManager.AddHook(GameModeHooks.HookInitEnd, GameActions.InitEnd);
 
             GameModeManager.AddHook(GameModeHooks.HookGameStart, GameActions.GameStart);
@@ -69,7 +70,7 @@ namespace GameEnhancementCards
 
             // No cathegory cards
             CustomCard.BuildCard<AnotherChance>();
-            CustomCard.BuildCard<Agreed>(); 
+            CustomCard.BuildCard<Agreed>();
             CustomCard.BuildCard<GoodGuy>();
             CustomCard.BuildCard<Rebalance>();
             CustomCard.BuildCard<Ticket>();
@@ -89,7 +90,7 @@ namespace GameEnhancementCards
             //CustomCard.BuildCard<Disable>();
             //CustomCard.BuildCard<DisableLite>();
 
-            
+
         }
 
         // void FixedUpdate()

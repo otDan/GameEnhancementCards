@@ -2,13 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnboundLib;
-using UnboundLib.Cards;
-using UnboundLib.Extensions;
 using UnboundLib.GameModes;
-using UnityEngine;
 
 namespace GameEnhancementCards.Utils
 {
@@ -66,7 +61,7 @@ namespace GameEnhancementCards.Utils
                 // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {choicePlayer} Started picking, number of cards {prePickCards.Count}");
             }
 
-            
+
             // prePickCards = new List<CardInfo>()
             // Unbound.Instance.StartCoroutine(PickerFinish(choicePlayer));
         }
@@ -103,7 +98,8 @@ namespace GameEnhancementCards.Utils
 
         internal static IEnumerator PickEnd(IGameModeHandler gameModeHandler)
         {
-            try {
+            try
+            {
                 // CardController.loadedArt = new List<CustomCard>();
 
                 // if (firstPick)
@@ -154,7 +150,7 @@ namespace GameEnhancementCards.Utils
                 //     }
                 // }
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
             }
@@ -177,7 +173,7 @@ namespace GameEnhancementCards.Utils
 
             yield break;
         }
-        
+
         internal static IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {
             try
@@ -190,7 +186,7 @@ namespace GameEnhancementCards.Utils
             {
                 //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Exception happened {exception}.");
             }
-        
+
             yield break;
         }
         //

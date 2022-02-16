@@ -1,14 +1,9 @@
-﻿using GameEnhancementCards.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
+﻿using GameEnhancementCards.Asset;
+using GameEnhancementCards.Utils;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace GameEnhancementCards.Cards
+namespace GameEnhancementCards.Card.Impl
 {
     class GodOfTickets : CustomCard
     {
@@ -41,7 +36,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return AssetManager.GodOfTicketsCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -55,13 +50,13 @@ namespace GameEnhancementCards.Cards
                 {
                     positive = true,
                     stat = "ticket:",
-                    amount = "For each",
+                    amount = "Each",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Rare card",
+                    stat = "<color=#FF00DD>Rare</color> card",
                     amount = "100%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }

@@ -1,14 +1,9 @@
 ﻿using GameEnhancementCards.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace GameEnhancementCards.Cards
+namespace GameEnhancementCards.Card.Impl
 {
     class PrizeBooth : CustomCard
     {
@@ -22,10 +17,12 @@ namespace GameEnhancementCards.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
-            List<ChanceCard> chanceCards = new List<ChanceCard>();
-            chanceCards.Add(new ChanceCard(CardController.Rarity.COMMON, 40));
-            chanceCards.Add(new ChanceCard(CardController.Rarity.UNCOMMON, 35));
-            chanceCards.Add(new ChanceCard(CardController.Rarity.RARE, 25));
+            List<ChanceCard> chanceCards = new List<ChanceCard>
+            {
+                new ChanceCard(CardController.Rarity.COMMON, 40),
+                new ChanceCard(CardController.Rarity.UNCOMMON, 35),
+                new ChanceCard(CardController.Rarity.RARE, 25)
+            };
             CardController.CallTicketRedeemer(player, chanceCards);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -71,14 +68,14 @@ namespace GameEnhancementCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Uncommon card",
+                    stat = "<color=#00B2FF>Uncommon</color> card",
                     amount = "35%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Rare card",
+                    stat = "<color=#FF00DD>Rare</color> card",
                     amount = "25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }//,

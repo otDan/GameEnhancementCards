@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GameEnhancementCards.Cards;
 using TMPro;
 using UnboundLib;
 using UnboundLib.Cards;
@@ -30,13 +29,10 @@ namespace GameEnhancementCards.Utils
 
         private static IEnumerator HandleGodOfTickets(Player player)
         {
-            UnityEngine.Debug.Log($"Calling god of tickets 1.");
             yield return Unbound.Instance.StartCoroutine(CardController.CleanseCursesOfPlayers());
-            UnityEngine.Debug.Log($"Calling god of tickets 2.");
             List<ChanceCard> chanceCards = new List<ChanceCard>();
             chanceCards.Add(new ChanceCard(CardController.Rarity.RARE, 100));
             CardController.CallTicketRedeemer(player, chanceCards);
-            UnityEngine.Debug.Log($"Calling god of tickets 3.");
         }
 
         private static IEnumerator CleanseCursesOfPlayers()
@@ -79,26 +75,43 @@ namespace GameEnhancementCards.Utils
 
         public static void CallTicketRedeemer(Player player, List<ChanceCard> percentageCards)
         {
-            // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Executing ticket redeemer.");
-            List<CardInfo> playerTicketCards = player.data.currentCards.Where(p => p.cardName == "Ticket").ToList();
-            // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Tickets found {playerTicketCards.Count}.");
-            Unbound.Instance.StartCoroutine(HandleTicketRedeemer(player, percentageCards, playerTicketCards));
-            // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Finished redeemer.");
+            var playerTickets = player.data.currentCards.Select((value, index) => new {value, index})
+                .Where(a => string.Equals(a.value.cardName, "Ticket"))
+                .Select(a => a.index).ToList();
+
+            Unbound.Instance.StartCoroutine(HandleTicketRedeemer(player, percentageCards, playerTickets));
         }
 
-        public static IEnumerator HandleTicketRedeemer(Player player, List<ChanceCard> percentageCards, List<CardInfo> playerTicketCards)
+        public static IEnumerator HandleTicketRedeemer(Player player, List<ChanceCard> percentageCards, List<int> playerTickets)
         {
             yield return WaitFor.Frames(25);
-            foreach (CardInfo ticketCard in playerTicketCards)
+
+            var playerCards = player.data.currentCards;
+            List<CardInfo> rolledCards = new List<CardInfo>();
+
+            for (int i = 0; i < playerTickets.Count; i++)
             {
-                // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Rolling card.");
-                var rolledCard = RollWithPercentages(player, percentageCards);
-                // if (rolledCard != null)
-                //     UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Rolled card {rolledCard}.");
-                // else
-                //     UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Rolled remove.");
-                ReplacePlayerCard(player, ticketCard, rolledCard);
-                yield return WaitFor.Frames(65);
+                rolledCards.Add(RollWithPercentages(player, percentageCards));
+            }
+
+            yield return ReplacePlayerCards(player, playerTickets, rolledCards);
+        }
+
+        public static IEnumerable<Tuple<T, int>> FindDuplicates<T>(IEnumerable<T> data)
+        {
+            var hashSet = new HashSet<T>();
+            int index = 0;
+            foreach (var item in data)
+            {
+                if (hashSet.Contains(item))
+                {
+                    yield return Tuple.Create(item, index);
+                }
+                else
+                {
+                    hashSet.Add(item);
+                }
+                index++;
             }
         }
 
@@ -212,17 +225,27 @@ namespace GameEnhancementCards.Utils
                 {
                     Unbound.Instance.ExecuteAfterFrames(25, () =>
                     {
-                        UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Replacing {oldCard} with {newCard}.");
+                        // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Replacing {oldCard} with {newCard}.");
                         Unbound.Instance.StartCoroutine(ModdingUtils.Utils.Cards.instance.ReplaceCard(player, playerCards.IndexOf(oldCard), newCard, "", 2f, 2f, true));
                     }
                     );
                 }
                 else
                 {
-                    UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Removing {oldCard}.");
+                    // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] Removing {oldCard}.");
                     ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, oldCard, SelectionType.Random);
                 }
             }
+        }
+
+        public static IEnumerator ReplacePlayerCards(Player player, List<int> playerTicketIndexes, List<CardInfo> newCards)
+        {
+            playerTicketIndexes.ForEach(index =>
+            {
+                UnityEngine.Debug.Log("Index in list: " + index);
+            });
+            
+            yield return Unbound.Instance.StartCoroutine(ModdingUtils.Utils.Cards.instance.ReplaceCards(player, playerTicketIndexes.ToArray(), newCards.ToArray(), null));
         }
 
         public static void GivePlayersCard(Player callPlayer, PlayerType playerType, Rarity rarity)
@@ -300,15 +323,15 @@ namespace GameEnhancementCards.Utils
             });
         }
 
-        public static void RandomizePlayersCardAtPosition(CardPosition cardPosition)
+        public static IEnumerator RandomizePlayersCardAtPosition(CardPosition cardPosition)
         {
             foreach (Player player in PlayerManager.instance.players)
             {
-                RandomizePlayerCardAtPosition(player, cardPosition);
+                yield return RandomizePlayerCardAtPosition(player, cardPosition);
             }
         }
 
-        public static void RandomizePlayerCardAtPosition(Player player, CardPosition cardPosition)
+        public static IEnumerator RandomizePlayerCardAtPosition(Player player, CardPosition cardPosition)
         {
             List<CardInfo> playerCards = player.data.currentCards;
             CardInfo oldCard = PlayerCardAtPosition(player, playerCards, cardPosition);
@@ -316,11 +339,8 @@ namespace GameEnhancementCards.Utils
             {
                 var randomCard = RandomCard(player, player.data.weaponHandler.gun, player.data.weaponHandler.gun.GetComponentInChildren<GunAmmo>(), player.data, player.data.healthHandler, player.GetComponent<Gravity>(), player.data.block, player.data.stats, CardRarity(oldCard, false));
                 //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] Replacing card {removeCard.cardName} from player {player.playerID} with {randomCard.cardName}.");
-                Unbound.Instance.ExecuteAfterFrames(25, () =>
-                {
-                    Unbound.Instance.StartCoroutine(ModdingUtils.Utils.Cards.instance.ReplaceCard(player, playerCards.IndexOf(oldCard), randomCard, "", 2f, 2f, true));
-                }
-                );
+                yield return WaitFor.Frames(25);
+                yield return Unbound.Instance.StartCoroutine(ModdingUtils.Utils.Cards.instance.ReplaceCard(player, playerCards.IndexOf(oldCard), randomCard, "", 2f, 2f, true));
             }
         }
 
@@ -338,7 +358,7 @@ namespace GameEnhancementCards.Utils
             CardInfo removeCard = PlayerCardAtPosition(player, playerCards, cardPosition);
             if (removeCard != null)
             {
-                Unbound.Instance.ExecuteAfterFrames(25, () =>
+                Unbound.Instance.ExecuteAfterFrames(10, () =>
                 {
                     ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, playerCards.IndexOf(removeCard));
                 }
@@ -492,6 +512,14 @@ namespace GameEnhancementCards.Utils
                     return false;
                 }
                 if (cardInfo.cardName == "Reroll")
+                {
+                    return false;
+                }
+                if (cardInfo.cardName == "Spice")
+                {
+                    return false;
+                }
+                if (cardInfo.cardName == "Rebalance")
                 {
                     return false;
                 }

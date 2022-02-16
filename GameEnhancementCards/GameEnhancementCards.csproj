@@ -95,8 +95,10 @@
     <Compile Include="Card\Impl\AnotherChance.cs" />
     <Compile Include="Card\Impl\Spice.cs" />
     <Compile Include="Card\Impl\Replace.cs" />
-    <Compile Include="Card\Change\Negate.cs" />
+    <Compile Include="Card\TODO\ArcadePlayer.cs" />
+    <Compile Include="Card\TODO\Negate.cs" />
     <Compile Include="Card\Impl\MissClick.cs" />
+    <Compile Include="Card\TODO\MoralSupport.cs" />
     <Compile Include="Card\TODO\Crypto.cs" />
     <Compile Include="Card\Impl\Agreed.cs" />
     <Compile Include="Card\Impl\GoodGuy.cs" />
@@ -128,9 +130,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Asset\otdanassets" />
     <None Include="manifest.json" />
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "E:\Projects\VisualStudio\Rounds\GameEnhancementCards\GameEnhancementCards\bin\Debug\GameEnhancementCards.dll" "C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Unknown-GameEnhancementCards\GameEnhancementCards.dll"

@@ -43,6 +43,17 @@
 | God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses from all players. |
 
 ## Versions
+- 2.1.0
+  - Placeholder card art
+    - Agreed
+    - Another Chance
+    - God Of Tickets
+    - Good Guy
+    - Hellish Deals
+    - Mafia
+    - Miss Click
+   - Spice fix
+   - Ticket redeeming cards fix
 - 2.0.2
   - Card art
     - Ticket

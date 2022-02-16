@@ -1,11 +1,10 @@
-﻿using GameEnhancementCards.Asset;
-using GameEnhancementCards.Utils;
+﻿using GameEnhancementCards.Utils;
 using UnboundLib.Cards;
 using UnityEngine;
 
 namespace GameEnhancementCards.Card.Impl
 {
-    class Mafia : CustomCard
+    class Negate : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -18,7 +17,7 @@ namespace GameEnhancementCards.Card.Impl
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardController.StealPlayersCardOfRarity(player, CardInfo.Rarity.Rare, PlayerAmount.ONE);
+            // CardController.CallNegate();
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -28,15 +27,15 @@ namespace GameEnhancementCards.Card.Impl
 
         protected override string GetTitle()
         {
-            return "Mafia";
+            return "Negate";
         }
         protected override string GetDescription()
         {
-            return "Steal a random rare card from a random player.";
+            return "Remove all the cards picked in the last round.";
         }
         protected override GameObject GetCardArt()
         {
-            return AssetManager.MafiaCard;
+            return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -44,37 +43,7 @@ namespace GameEnhancementCards.Card.Impl
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]
-            {
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "stolen:",
-                    amount = "No card",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Ticket cards",
-                    amount = "+3",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                // new CardInfoStat()
-                // {
-                //     positive = true,
-                //     stat = "opponent:",
-                //     amount = "<color=#00B2FF>Stolen",
-                //     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                // },
-                // new CardInfoStat()
-                // {
-                //     positive = true,
-                //     stat = "Ticket cards",
-                //     amount = "+3",
-                //     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                // },
-            };
+            return new CardInfoStat[] { };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {

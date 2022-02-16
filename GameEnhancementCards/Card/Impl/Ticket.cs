@@ -1,15 +1,9 @@
-﻿using GameEnhancementCards.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameEnhancementCards.Asset;
-using UnboundLib;
+﻿using GameEnhancementCards.Asset;
+using GameEnhancementCards.Utils;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace GameEnhancementCards.Cards
+namespace GameEnhancementCards.Card.Impl
 {
     class Ticket : CustomCard
     {
@@ -48,7 +42,7 @@ namespace GameEnhancementCards.Cards
         }
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[] { };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
