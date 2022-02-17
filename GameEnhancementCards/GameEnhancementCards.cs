@@ -21,7 +21,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.gameenhancementcards";
         private const string ModName = "Game Enhancement Cards";
-        public const string Version = "2.1.0";
+        public const string Version = "2.1.1";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 
@@ -89,16 +89,7 @@ namespace GameEnhancementCards
             //Needs rethinking probably bad idea
             //CustomCard.BuildCard<Disable>();
             //CustomCard.BuildCard<DisableLite>();
-
-
         }
-
-        // void FixedUpdate()
-        // {
-        //     CardController.Update();
-        // }
     }
-
-    // public static 
 }
 

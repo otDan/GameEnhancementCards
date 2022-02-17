@@ -1,4 +1,5 @@
-﻿using GameEnhancementCards.Utils;
+﻿using GameEnhancementCards.Asset;
+using GameEnhancementCards.Utils;
 using UnboundLib.Cards;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace GameEnhancementCards.Card.Impl
         protected override GameObject GetCardArt()
         {
             //Two characters and shuffling cards on top
-            return null;
+            return AssetManager.RebalanceCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {

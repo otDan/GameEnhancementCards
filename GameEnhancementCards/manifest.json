@@ -1,6 +1,6 @@
 {
   "name": "GameEnhancementCards",
-  "version_number": "2.1.0",
+  "version_number": "2.1.1",
   "website_url": "https://github.com/otDan/GameEnhancementCards",
   "description": "General gameplay changing cards that stray away from vanilla.",
   "dependencies": [

@@ -10,12 +10,12 @@ namespace GameEnhancementCards.Mono
 {
     class CustomCardHandler : MonoBehaviour
     {
-        private static readonly Color firstColor = new Color(1f, 0f, 0.914f, 0.5f);
-        private static readonly Color secondColor = new Color(1f, 0f, 0.014f, 1f);
-        private static readonly Color triangleColor = new Color(0.90f, 0.90f, 0.90f, 0.75f);
-        private static readonly Color textColor = new Color(1f, 1f, 1f, 0.92f);
+        private static readonly Color FirstColor = new Color(1f, 0f, 0.914f, 0.5f);
+        private static readonly Color SecondColor = new Color(1f, 0f, 0.014f, 1f);
+        private static readonly Color TriangleColor = new Color(0.90f, 0.90f, 0.90f, 0.75f);
+        private static readonly Color TextColor = new Color(1f, 1f, 1f, 0.92f);
 
-        private static readonly Color legendaryColor = new Color(1f, 0.8f, 0f, 1f);
+        private static readonly Color LegendaryColor = new Color(1f, 0.8f, 0f, 1f);
 
         private float _timeLeft;
         private Color _targetColor;
@@ -26,6 +26,8 @@ namespace GameEnhancementCards.Mono
         private List<Component> _ballImageObjects;
         private HashSet<Image> _triangleImages;
 
+        private bool _legendary = true;
+
         private void Awake()
         {
             var generalObject = gameObject;
@@ -34,8 +36,19 @@ namespace GameEnhancementCards.Mono
                 generalObject = transform.parent.gameObject;
             }
 
-            _cardTextObject = CardController.FindObjectInChildren(generalObject, "Text_Name").GetComponent<TextMeshProUGUI>(); //this.gameObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true));
-            _images = generalObject.GetComponentsInChildren<Image>(true).Where(x => x.gameObject.name != "Background" && x.gameObject.transform.parent.name == "Front" || x.gameObject.transform.parent.name == "Back" || x.gameObject.transform.parent.name.Contains("EdgePart") || x.gameObject.transform.name.Contains("FRAME")).ToList();
+            _cardTextObject = CardController.FindObjectInChildren(generalObject, "Text_Name")
+                .GetComponent<
+                    TextMeshProUGUI>(); //this.gameObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponentInChildren(typeof(TextMeshProUGUI), true));
+            _images = generalObject.GetComponentsInChildren<Image>(true).Where(x =>
+            {
+                GameObject foundGameObject = x.gameObject;
+                Transform gameObjectTransform = foundGameObject.transform;
+                Transform gameObjectParentTransform = gameObjectTransform.parent;
+                return foundGameObject.name != "Background" && gameObjectParentTransform.name == "Front" ||
+                       gameObjectParentTransform.name == "Back" ||
+                       gameObjectParentTransform.name.Contains("EdgePart") ||
+                       gameObjectTransform.name.Contains("FRAME");
+            }).ToList();
 
             foreach (var frameObject in CardController.FindObjectsInChildren(generalObject, "FRAME", true))
             {
@@ -45,7 +58,8 @@ namespace GameEnhancementCards.Mono
             _ballImageObjects = new List<Component>();
             foreach (GameObject ballObject in CardController.FindObjectsInChildren(generalObject, "SmallBall", false))
             {
-                _ballImageObjects.AddRange(ballObject.gameObject.GetComponentsInChildren(typeof(ProceduralImage), true).Where(x => x.gameObject.transform.name.Contains("SmallBall")).ToList());
+                _ballImageObjects.AddRange(ballObject.gameObject.GetComponentsInChildren(typeof(ProceduralImage), true)
+                    .Where(x => x.gameObject.transform.name.Contains("SmallBall")).ToList());
             }
 
             var edgesObject = CardController.FindObjectInChildren(generalObject, "Edges");
@@ -71,59 +85,67 @@ namespace GameEnhancementCards.Mono
                 }
             }
 
-            var _extraTextObj = new GameObject("ExtraCardText", typeof(TextMeshProUGUI));
+            var extraTextObj = new GameObject("ExtraCardText", typeof(TextMeshProUGUI));
             RectTransform[] allChildrenRecursive = generalObject.GetComponentsInChildren<RectTransform>();
-            GameObject BottomLeftCorner = allChildrenRecursive.Where(obj => obj.gameObject.name == "EdgePart (1)").FirstOrDefault().gameObject;
-            GameObject creatorNameObject = Instantiate(_extraTextObj, BottomLeftCorner.transform.position, BottomLeftCorner.transform.rotation, BottomLeftCorner.transform);
-            creatorNameObject.transform.Rotate(0f, 0f, 135f);
-            creatorNameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            creatorNameObject.transform.localPosition = new Vector3(-50f, -50f, 0f);
+            GameObject bottomLeftCorner = allChildrenRecursive
+                .FirstOrDefault(obj => obj.gameObject.name == "EdgePart (1)")?.gameObject;
+            if (bottomLeftCorner != null)
+            {
+                GameObject creatorNameObject = Instantiate(extraTextObj, bottomLeftCorner.transform.position,
+                    bottomLeftCorner.transform.rotation, bottomLeftCorner.transform);
+                creatorNameObject.transform.Rotate(0f, 0f, 135f);
+                creatorNameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                creatorNameObject.transform.localPosition = new Vector3(-50f, -50f, 0f);
 
-            TextMeshProUGUI creatorName = creatorNameObject.GetComponent<TextMeshProUGUI>();
-            creatorName.text = "otDan";
-            creatorName.enableWordWrapping = false;
-            creatorName.alignment = TextAlignmentOptions.Bottom;
-            creatorName.alpha = 1f;
-            creatorName.fontSize = 70;
-            creatorName.color = new Color(0.5f, 0f, 1f, 1f);
+                TextMeshProUGUI creatorName = creatorNameObject.GetComponent<TextMeshProUGUI>();
+                creatorName.text = "otDan";
+                creatorName.enableWordWrapping = false;
+                creatorName.alignment = TextAlignmentOptions.Bottom;
+                creatorName.alpha = 1f;
+                creatorName.fontSize = 70;
+                creatorName.color = new Color(0.5f, 0f, 1f, 1f);
+            }
+
+            if (gameObject.GetComponent<Legendary>() == null)
+            {
+                _legendary = false;
+            }
         }
 
         private void Update()
         {
-            if (gameObject.activeInHierarchy)
+            if (!gameObject.activeInHierarchy) return;
+
+            if (_timeLeft <= Time.deltaTime)
             {
-                if (_timeLeft <= Time.deltaTime)
-                {
-                    CardColorChange(_targetColor);
-                    _timeLeft = 1f;
+                CardColorChange(_targetColor);
+                _timeLeft = 1f;
 
-                    if (_targetColor == firstColor)
-                    {
-                        _targetColor = secondColor;
-                        return;
-                    }
-
-                    _targetColor = firstColor;
-                }
-                else
+                if (_targetColor == FirstColor)
                 {
-                    CardColorChange(Color.Lerp(_currentColor, _targetColor, Time.deltaTime / _timeLeft));
-                    _timeLeft -= Time.deltaTime;
+                    _targetColor = SecondColor;
+                    return;
                 }
 
-                if (gameObject.GetComponent<Legendary>() != null)
-                {
-                    foreach (var triangleImage in _triangleImages)
-                    {
-                        triangleImage.color = legendaryColor;
-                    }
-                }
+                _targetColor = FirstColor;
+            }
+            else
+            {
+                CardColorChange(Color.Lerp(_currentColor, _targetColor, Time.deltaTime / _timeLeft));
+                _timeLeft -= Time.deltaTime;
+            }
+
+            if (!_legendary) return;
+
+            foreach (var triangleImage in _triangleImages)
+            {
+                triangleImage.color = LegendaryColor;
             }
         }
 
         private void CardColorChange(Color newColor)
         {
-            _cardTextObject.color = textColor;
+            _cardTextObject.color = TextColor;
 
             foreach (Image image in _images)
             {
@@ -133,12 +155,9 @@ namespace GameEnhancementCards.Mono
                 }
             }
 
-            foreach (ProceduralImage image in _ballImageObjects)
+            foreach (var image in _ballImageObjects.Cast<ProceduralImage>().Where(image => image != null))
             {
-                if (image != null)
-                {
-                    image.color = triangleColor;
-                }
+                image.color = TriangleColor;
             }
 
             _currentColor = newColor;

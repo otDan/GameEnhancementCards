@@ -1,5 +1,6 @@
 ﻿using GameEnhancementCards.Utils;
 using System.Collections.Generic;
+using GameEnhancementCards.Asset;
 using UnboundLib.Cards;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace GameEnhancementCards.Card.Impl
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return AssetManager.SketchyTraderCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {

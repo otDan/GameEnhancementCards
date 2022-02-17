@@ -1,4 +1,5 @@
-﻿using GameEnhancementCards.Utils;
+﻿using GameEnhancementCards.Asset;
+using GameEnhancementCards.Utils;
 using UnboundLib.Cards;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace GameEnhancementCards.Card.Impl
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return AssetManager.ReplaceCard;
         }
         protected override CardInfo.Rarity GetRarity()
         {

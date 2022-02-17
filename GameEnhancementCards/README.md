@@ -43,6 +43,13 @@
 | God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses from all players. |
 
 ## Versions
+- 2.1.1
+  - Placeholder card art
+    - Prize Booth
+    - Rebalance
+    - Replace
+    - Sketchy Trader
+    - Spice
 - 2.1.0
   - Placeholder card art
     - Agreed

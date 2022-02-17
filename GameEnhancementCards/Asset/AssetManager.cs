@@ -20,5 +20,10 @@ namespace GameEnhancementCards.Asset
         public static GameObject HellishDealsCard = PlaceholderBundle.LoadAsset<GameObject>("C_HELLISHDEAL");
         public static GameObject MafiaCard = PlaceholderBundle.LoadAsset<GameObject>("C_MAFIA");
         public static GameObject MissClickCard = PlaceholderBundle.LoadAsset<GameObject>("C_MISSCLICK");
+        public static GameObject PrizeBoothCard = PlaceholderBundle.LoadAsset<GameObject>("C_PRIZEBOOTH");
+        public static GameObject RebalanceCard = PlaceholderBundle.LoadAsset<GameObject>("C_REBALANCE");
+        public static GameObject ReplaceCard = PlaceholderBundle.LoadAsset<GameObject>("C_REPLACE");
+        public static GameObject SketchyTraderCard = PlaceholderBundle.LoadAsset<GameObject>("C_SKETCHYTRADER");
+        public static GameObject SpiceCard = PlaceholderBundle.LoadAsset<GameObject>("C_SPICE");
     }
 }

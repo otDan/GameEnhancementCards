@@ -40,8 +40,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="BepInEx">
-      <HintPath>C:\Users\ostas\Desktop\BepInEx\BepInEx\core\BepInEx.dll</HintPath>
+    <Reference Include="BepInEx, Version=5.4.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="CardChoiceSpawnUniqueCardPatch">
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\Pykess-CardChoiceSpawnUniqueCardPatch\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
@@ -55,7 +56,8 @@
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\SonigonAudioEngine.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="UnboundLib">
+    <Reference Include="UnboundLib, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,8 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
-    <Reference Include="WillsWackyManagers">
-      <HintPath>C:\Users\ostas\Desktop\RoundsOthers\WillsWackyManagers.dll</HintPath>
+    <Reference Include="WillsWackyManagers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\ostas\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\MyModdedTesting\BepInEx\plugins\willuwontu-WillsWackyManagers\WillsWackyManagers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
