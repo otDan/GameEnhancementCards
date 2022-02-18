@@ -1,5 +1,5 @@
 ﻿using GameEnhancementCards.Asset;
-using GameEnhancementCards.Utils;
+using GameEnhancementCards.Util;
 using UnboundLib.Cards;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace GameEnhancementCards.Card.Impl
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardController.LoadCard(this);
+            CardController.LoadCard(this, true);
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;
@@ -18,7 +18,7 @@ namespace GameEnhancementCards.Card.Impl
         {
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
             //Edits values on player when card is selected
-            CardController.RandomizePlayerCardAtPosition(player, CardPosition.LAST);
+            CardController.CallReplace(player);
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {

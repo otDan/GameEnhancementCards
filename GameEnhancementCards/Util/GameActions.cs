@@ -5,17 +5,16 @@ using System.Linq;
 using UnboundLib;
 using UnboundLib.GameModes;
 
-namespace GameEnhancementCards.Utils
+namespace GameEnhancementCards.Util
 {
     public static class GameActions
     {
         // private static Dictionary<int, List<CardInfo>> usedRoundCards = new Dictionary<int, List<CardInfo>>();
         // public static Dictionary<int, List<CardInfo>> lastRoundCards { get; private set; }
-        private static bool firstPick = true;
-
-        private static int lastPicker = -1;
-        private static List<CardInfo> prePickCards;
-        public static List<CardInfo> finishedPickCards { get; private set; }
+        private static bool _firstPick = true;
+        private static int _lastPicker = -1;
+        private static List<CardInfo> _prePickCards;
+        public static List<CardInfo> FinishedPickCards { get; private set; }
 
         static GameActions()
         {
@@ -45,21 +44,21 @@ namespace GameEnhancementCards.Utils
             int choicePlayer = CardChoice.instance.pickrID;
             // UnityEngine.Debug.Log($"LastPicker: {lastPicker} choicePlayer: {choicePlayer}");
 
-            if (lastPicker != -1)
+            if (_lastPicker != -1)
             {
                 // printCards(prePickCards, "prepick");
-                finishedPickCards = PlayerManager.instance.players[lastPicker].data.currentCards.ToList();
-                finishedPickCards.RemoveAll(card => prePickCards.Contains(card));
+                FinishedPickCards = PlayerManager.instance.players[_lastPicker].data.currentCards.ToList();
+                FinishedPickCards.RemoveAll(card => _prePickCards.Contains(card));
                 // printCards(finishedPickCards, "finished");
                 // printCards(PlayerManager.instance.players[lastPicker].data.currentCards.ToList(), "player");
                 // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {lastPicker} Finished picking.number of prepick {prePickCards.Count} number of picked cards {finishedPickCards.Count} total number of cards {PlayerManager.instance.players[lastPicker].data.currentCards.Count}");
             }
-            if (lastPicker != choicePlayer)
-            {
-                lastPicker = choicePlayer;
-                prePickCards = PlayerManager.instance.players[choicePlayer].data.currentCards.ToList();
-                // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {choicePlayer} Started picking, number of cards {prePickCards.Count}");
-            }
+
+            if (_lastPicker == choicePlayer) yield break;
+
+            _lastPicker = choicePlayer;
+            _prePickCards = PlayerManager.instance.players[choicePlayer].data.currentCards.ToList();
+            // UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}] {choicePlayer} Started picking, number of cards {prePickCards.Count}");
 
 
             // prePickCards = new List<CardInfo>()
@@ -162,9 +161,9 @@ namespace GameEnhancementCards.Utils
         {
             try
             {
-                lastPicker = -1;
-                prePickCards = new List<CardInfo>();
-                finishedPickCards = new List<CardInfo>();
+                _lastPicker = -1;
+                _prePickCards = new List<CardInfo>();
+                FinishedPickCards = new List<CardInfo>();
             }
             catch (Exception exception)
             {
@@ -178,9 +177,9 @@ namespace GameEnhancementCards.Utils
         {
             try
             {
-                lastPicker = -1;
-                prePickCards = new List<CardInfo>();
-                finishedPickCards = new List<CardInfo>();
+                _lastPicker = -1;
+                _prePickCards = new List<CardInfo>();
+                FinishedPickCards = new List<CardInfo>();
             }
             catch (Exception exception)
             {

@@ -1,4 +1,4 @@
-﻿using GameEnhancementCards.Utils;
+﻿using GameEnhancementCards.Util;
 using UnboundLib.Cards;
 using UnityEngine;
 

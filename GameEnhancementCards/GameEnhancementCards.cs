@@ -1,6 +1,6 @@
 ﻿using BepInEx;
 using GameEnhancementCards.Card.Impl;
-using GameEnhancementCards.Utils;
+using GameEnhancementCards.Util;
 using HarmonyLib;
 using Jotunn.Utils;
 using UnboundLib.Cards;
@@ -21,7 +21,7 @@ namespace GameEnhancementCards
     {
         private const string ModId = "ot.dan.rounds.gameenhancementcards";
         private const string ModName = "Game Enhancement Cards";
-        public const string Version = "2.1.1";
+        public const string Version = "2.2.0";
         public const string ModInitials = "GEC";
         public static GameEnhancementCards instance { get; private set; }
 

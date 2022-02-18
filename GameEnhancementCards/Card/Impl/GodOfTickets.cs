@@ -1,5 +1,5 @@
 ﻿using GameEnhancementCards.Asset;
-using GameEnhancementCards.Utils;
+using GameEnhancementCards.Util;
 using UnboundLib.Cards;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace GameEnhancementCards.Card.Impl
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            CardController.LoadCard(this, true); //, CardController.Rarity.LEGENDARY
+            CardController.LoadCard(this, CardController.Rarity.LEGENDARY, true); //, CardController.Rarity.LEGENDARY
             //UnityEngine.Debug.Log($"[{GameEnhancementCards.ModInitials}][Card] {GetTitle()} has been setup.");
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
             ModdingUtils.Extensions.CardInfoExtension.GetAdditionalData(cardInfo).canBeReassigned = false;

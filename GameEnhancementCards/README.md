@@ -43,6 +43,14 @@
 | God Of Tickets | Pick this card to redeem your current tickets. Cleanses curses from all players. |
 
 ## Versions
+- 2.2.0
+  - General big crashing game fixes
+  - Fixed spice not working
+  - Manipulation cards are not drawn for other manipulation cards anymore
+  - Fixed most (if not all) endless giving card loops
+  - Small performance tweaks
+  - Agreed fix
+  - Replace fix
 - 2.1.1
   - Placeholder card art
     - Prize Booth

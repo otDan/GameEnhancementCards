@@ -1,4 +1,4 @@
-﻿using GameEnhancementCards.Utils;
+﻿using GameEnhancementCards.Util;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -24,6 +24,7 @@ namespace GameEnhancementCards.Mono
         private TextMeshProUGUI _cardTextObject;
         private List<Image> _images;
         private List<Component> _ballImageObjects;
+        private HashSet<Image> _rarityImages;
         private HashSet<Image> _triangleImages;
 
         private bool _legendary = true;
@@ -46,7 +47,6 @@ namespace GameEnhancementCards.Mono
                 Transform gameObjectParentTransform = gameObjectTransform.parent;
                 return foundGameObject.name != "Background" && gameObjectParentTransform.name == "Front" ||
                        gameObjectParentTransform.name == "Back" ||
-                       gameObjectParentTransform.name.Contains("EdgePart") ||
                        gameObjectTransform.name.Contains("FRAME");
             }).ToList();
 
@@ -71,18 +71,21 @@ namespace GameEnhancementCards.Mono
                 SetEdgeInAnimation(edgesObject, 3, new Vector3(-230, -970));
             }
 
-            _triangleImages = new HashSet<Image>();
+            _rarityImages = new HashSet<Image>();
             var triangleObjects = CardController.FindObjectsInChildren(generalObject, "Triangle", true);
             if (triangleObjects != null)
             {
-                foreach (var triangleObject in triangleObjects)
+                foreach (var triangleObjectImage in triangleObjects.Select(triangleObject => triangleObject.GetComponent<Image>()).Where(triangleObjectImage => triangleObjectImage != null))
                 {
-                    var triangleObjectImage = triangleObject.GetComponent<Image>();
-                    if (triangleObjectImage != null)
-                    {
-                        _triangleImages.Add(triangleObjectImage);
-                    }
+                    _rarityImages.Add(triangleObjectImage);
                 }
+            }
+
+            _triangleImages = new HashSet<Image>();
+            foreach (var triangleImage in _images.Where(triangleImage => triangleImage.transform.parent != null).Where(triangleImage => triangleImage.transform.parent.name == "Triangle"))
+            {
+                // UnityEngine.Debug.Log($"Triangle found: {triangleImage.transform.parent.name}");
+                _triangleImages.Add(triangleImage);
             }
 
             var extraTextObj = new GameObject("ExtraCardText", typeof(TextMeshProUGUI));
@@ -137,7 +140,7 @@ namespace GameEnhancementCards.Mono
 
             if (!_legendary) return;
 
-            foreach (var triangleImage in _triangleImages)
+            foreach (var triangleImage in _rarityImages)
             {
                 triangleImage.color = LegendaryColor;
             }
@@ -158,6 +161,11 @@ namespace GameEnhancementCards.Mono
             foreach (var image in _ballImageObjects.Cast<ProceduralImage>().Where(image => image != null))
             {
                 image.color = TriangleColor;
+            }
+
+            foreach (Image triangleImage in _triangleImages)
+            {
+                triangleImage.color = TriangleColor;
             }
 
             _currentColor = newColor;
